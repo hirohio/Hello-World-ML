@@ -9,9 +9,10 @@ This project is a CUI application and supplies fundamental functions as follows.
 
 1, Preprocessing.
 2, ML Algorithm
-3, Write/Read csv file.
+3, Drawing Graphs.
+4, Write/Read csv file.
 
-I belive that it helps some beginner programmer and non programmer who wan to use ML.
+I believe that it helps some beginner programmer and non programmer who wan to use ML.
 
 
 
