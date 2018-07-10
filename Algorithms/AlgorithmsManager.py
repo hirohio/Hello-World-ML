@@ -14,7 +14,10 @@ import traceback
 import Algorithms.RandomForest as randforest
 import Algorithms.Deeplearning as deeplearning
 import Algorithms.VotingClassifier as votingclassfier
+import Algorithms.Utilities.NumChecker as aun
 import IOFiles.IOFileManager as iof
+
+RANDOM_FOREST_PARAMETER_PATH = "/Algorithms/Data/RandomForestParameters.yml"
 
 class AlgorithmsManager:
 
@@ -48,8 +51,11 @@ class AlgorithmsManager:
                 continue
 
     def _invoke_random_forest(self):
-        print("Following data is referd for training")
-        self._df.info()
+        # Check object type is existed in data frame
+        if aun.NumChecker.is_df_num(self._df) is False:
+            print('Random Forest can not accept types but int or float')
+            return
+
         rf = randforest.RandomForestManager(self._df)
 
         while True:
@@ -57,13 +63,24 @@ class AlgorithmsManager:
             if(prediction_column in self._df.columns):
                 break
 
-        print("Test file is required.")
+        # read parameter from a file.
         io_file = iof.IOFileManager()
-        test_df = io_file.import_from_csv()
+        params = io_file.read_from_yaml(RANDOM_FOREST_PARAMETER_PATH)
 
-        rf.learn(prediction_column)
-        output_df = rf.predictII(test_df)
-        #output_df = rf.predict(prediction_column,test_df)
+        rf.learn(prediction_column,params)
+
+        while True:
+            ans = input("Do you predict test csv file? ( y / n ) :")
+            if 'y' ==  ans:
+                print("Test file is required.")
+                io_file = iof.IOFileManager()
+                test_df = io_file.import_from_csv()
+            elif 'n' == ans:
+                return
+            else:
+                continue
+
+        output_df = rf.predict(test_df)
 
         print("Exporting File\n")
         io_file.export_output(test_df,output_df,prediction_column)

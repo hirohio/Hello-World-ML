@@ -4,10 +4,7 @@ import pandas as pd
 from scipy import stats
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import RandomForestClassifier
 
 import sys as sys
 import traceback
@@ -39,11 +36,19 @@ class IOFileManager:
             df = self.import_from_csv()
         return df
 
+    def read_from_yaml(self, file_name):
+        try:
+            data = self.io_file.read_from_yaml(file_name)
+        except FileNotFoundError:
+            data = None
+        return data
+
+
     def export_to_csv(self,df):
         while True:
             try:
                 file_name = input("Please input output file name. : ")
-                self.io_file.export_to_csv(file_name,df)
+                self.io_file.export_to_csv('/Data/' + file_name,df)
                 return df
             except:
                 print("Unexpected Exception")

@@ -10,7 +10,7 @@ from sklearn.neighbors import KNeighborsClassifier
 import sys as sys
 import traceback
 
-import Preprocessing as prep
+import Preprocessing.Preprocessing as prep
 
 class PreprocessingManager:
 
