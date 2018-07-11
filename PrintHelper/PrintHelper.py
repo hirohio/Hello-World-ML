@@ -29,6 +29,6 @@ class PrintHelper:
             str_mes += ' '
         str_mes += '|'
 
-        print(str_bar)
+        print('\n'+str_bar)
         print(str_mes)
         print(str_bar)

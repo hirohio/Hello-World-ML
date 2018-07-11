@@ -1,23 +1,11 @@
-import csv as csv
-import numpy as np
-import pandas as pd
-from scipy import stats
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import RandomForestClassifier
-
-import sys as sys
-import traceback
 import Algorithms.RandomForest as randforest
 import Algorithms.Deeplearning as deeplearning
 import Algorithms.VotingClassifier as votingclassfier
-import Algorithms.Utilities.NumChecker as aun
 import IOFiles.IOFileManager as iof
+import Algorithms.Utilities.DataFrameChecker as dfc
 
-RANDOM_FOREST_PARAMETER_PATH = "/Algorithms/Data/RandomForestParameters.yml"
+RANDOM_FOREST_PARAMETER_PATH = "/Algorithms/Data/RandomForestParameters_test.yml"
+DEEP_LEARNING_PARAMETER_PATH = "/Algorithms/Data/DeepLearningParameters_test.yml"
 
 class AlgorithmsManager:
 
@@ -52,9 +40,12 @@ class AlgorithmsManager:
 
     def _invoke_random_forest(self):
         # Check object type is existed in data frame
-        if aun.NumChecker.is_df_num(self._df) is False:
-            print('Random Forest can not accept types but int or float')
+        if dfc.DataFrameChecker.is_df_num(self._df) is False:
+            print('Random Forest can not accept these types but int or float')
             return
+
+        print("Following data is referd for training")
+        self._df.info()
 
         rf = randforest.RandomForestManager(self._df)
 
@@ -75,6 +66,7 @@ class AlgorithmsManager:
                 print("Test file is required.")
                 io_file = iof.IOFileManager()
                 test_df = io_file.import_from_csv()
+                break
             elif 'n' == ans:
                 return
             else:
@@ -86,6 +78,11 @@ class AlgorithmsManager:
         io_file.export_output(test_df,output_df,prediction_column)
 
     def _invoke_deep_learning(self):
+        # Check object type is existed in data frame
+        if dfc.DataFrameChecker.is_df_num(self._df) is False:
+            print('Deep Learning can not accept these types but int or float')
+            return
+
         print("Following data is referd for training")
         self._df.info()
         dl = deeplearning.DeepLearningManager(self._df)
@@ -95,44 +92,27 @@ class AlgorithmsManager:
             if(prediction_column in self._df.columns):
                 break
 
-        while True:
-            #最適化手法
-            solver = input("Input solver you want to use:('lbfgs', 'sgd', 'adam'): ")
-            break
-
-            if solver == "lbfgs":
-                break
-            elif solver == "sgd":
-                break
-            elif solver == "adam":
-                break
-            elif solver == "":
-                continue
-            else:
-                print(solver + " is not existed.")
-                continue
-
-        while True:
-            #活性化関数
-            activation = input("Input activation you want to use:(‘identity’, ‘logistic’, ‘tanh’, ‘relu’): ")
-            if activation == "identity":
-                break
-            elif activation == "logistic":
-                break
-            elif activation == "tanh":
-                break
-            elif activation == "relu":
-                break
-            elif activation == "":
-                continue
-            else:
-                print(activation + " is not existed.")
-                continue
-
-        print("Test file is required.")
+        # read parameter from a file.
         io_file = iof.IOFileManager()
-        test_df = io_file.import_from_csv()
-        output_df = dl.predict(prediction_column,test_df, solver, activation)
+        params = io_file.read_from_yaml(DEEP_LEARNING_PARAMETER_PATH)
+
+        if not dl.learn(prediction_column,params):
+            print('Deep Learning was failed')
+            return
+
+        while True:
+            ans = input("Do you predict test csv file? ( y / n ) :")
+            if 'y' ==  ans:
+                print("Test file is required.")
+                io_file = iof.IOFileManager()
+                test_df = io_file.import_from_csv()
+                break
+            elif 'n' == ans:
+                return
+            else:
+                continue
+
+        output_df = dl.predict(test_df)
 
         print("Exporting File\n")
         io_file.export_output(test_df,output_df,prediction_column)

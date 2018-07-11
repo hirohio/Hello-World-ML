@@ -43,7 +43,6 @@ class IOFileManager:
             data = None
         return data
 
-
     def export_to_csv(self,df):
         while True:
             try:
@@ -57,7 +56,9 @@ class IOFileManager:
 
 
     def export_output(self,original_test_df,output_df,predicted_column):
-        print("original test data")
+        print('*-----------------------------*')
+        print('|     Original Test Data      |')
+        print('*-----------------------------*')
         original_test_df.info()
         ans = input("(w):Write output to file, (cancel) Not write output to file: ")
         while True:

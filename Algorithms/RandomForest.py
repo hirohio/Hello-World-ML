@@ -1,17 +1,11 @@
-import csv as csv
 import numpy as np
-import pandas as pd
-from scipy import stats
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
-import Algorithms.Utilities.NumChecker as aun
-import sys as sys
-import traceback
+import Algorithms.Utilities.DataFrameChecker as dfc
+import PrintHelper.PrintHelper as phelper
 
 class RandomForestManager:
 
@@ -19,7 +13,7 @@ class RandomForestManager:
         self._df = df
 
     def learn(self,column,params):
-        if aun.NumChecker.is_df_num(self._df) is False:
+        if dfc.DataFrameChecker.is_df_num(self._df) is False:
             return False
 
         #predict data
@@ -33,19 +27,18 @@ class RandomForestManager:
         (X_train, X_test, y_train, y_test) = train_test_split(X, y, test_size=0.3, random_state=0)
 
         model = RandomForestClassifier()
+        phelper.PrintHelper.print_title('Default Params')
 
-        print('*-----------------------------*')
-        print('|        Default Params       |')
-        print('*-----------------------------*')
         print(model.get_params())
 
-        print('*-----------------------------*')
-        print('|        Read File Params     |')
-        print('*-----------------------------*')
+        phelper.PrintHelper.print_title('Params from a file')
         print(params)
 
         # 評価関数を指定
         #scores = ['accuracy', 'precision', 'recall']
+        if params == None:
+            params = model.get_params()
+
         print('...Doing Grid Search...')
         cv = GridSearchCV(model, params, cv = 10, scoring = 'neg_mean_squared_error', n_jobs=1, refit = True)
 
@@ -53,17 +46,13 @@ class RandomForestManager:
 
         self._best_params = cv.best_params_
         self._learned_model = cv.best_estimator_
-        print('*-----------------------------*')
-        print('|          Best Params        |')
-        print('*-----------------------------*')
+
+        phelper.PrintHelper.print_title('Best Params')
         print(cv.best_params_)
 
         self._learned_model = cv
 
-        # print importance of features
-        print('*-----------------------------*')
-        print('|      Feature Importance     |')
-        print('*-----------------------------*')
+        phelper.PrintHelper.print_title('Feature Importance')
         feature_names = X_train.columns
         importances = cv.best_estimator_.feature_importances_
 
@@ -74,12 +63,14 @@ class RandomForestManager:
         print('...Predicting Test Data...')
         predicted_result = self._learned_model.predict(X_test).astype(int)
 
-        print('*-----------------------------*')
-        print('|        Accuracy Score       |')
-        print('*-----------------------------*')
+        phelper.PrintHelper.print_title('Accuracy Score')
         print(accuracy_score(y_test,predicted_result))
 
         return True
 
     def predict(self,test_df):
+        #checking matching between test_df.columns and x_df.columns
+        if not dfc.DataFrameChecker.is_columns_matched(self._df,test_df):
+            return None
+
         return self._learned_model.predict(test_df).astype(int)

@@ -1,47 +1,68 @@
-#scikit-learnから必要な関数をインポート
 import numpy as np
+
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_score
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import GridSearchCV
+import Algorithms.Utilities.DataFrameChecker as dfc
+import PrintHelper.PrintHelper as phelper
 
 class DeepLearningManager:
+
     def __init__(self,df):
         self._df = df
 
-    def predict(self,column,test_df,solver,activation):
-        self._y_column = column
+    def learn(self,column,params):
+        if dfc.DataFrameChecker.is_df_num(self._df) is False:
+            return False
+
         #predict data
-        y_df = self._df[self.y_column]
+        y = self._df[column]
+        self._y = y
 
         #learning data
-        x_df = self._df.drop([self.y_column], axis=1)
-        print("[train data]: \n")
-        x_df.info()
+        X = self._df .drop([column], axis=1)
+        self._X = X
 
-        #test Data
-        original_test_df = test_df
+        (X_train, X_test, y_train, y_test) = train_test_split(X, y, test_size=0.3, random_state=0)
 
-        #preprocessing test Data
-        #Matching between train_df and test_df
-        print("\n" + "preprocesing data")
-        for val in test_df.columns:
-            if not val in x_df.columns:
-                test_df = test_df.drop(val, axis=1)
-                print("dropped " + val + " from test data")
+        model = MLPClassifier()
 
-        for val in x_df.columns:
-            if not val in test_df.columns:
-                x_df = x_df.drop(val, axis=1)
-                print("dropped " + val + " from train data")
+        phelper.PrintHelper.print_title('Default Params')
+        print(model.get_params())
 
-        print("[test data]: \n")
-        test_df.info()
+        phelper.PrintHelper.print_title('Params from a file')
+        if params == None:
+            print('Settings Params file is None.')
+            params = {}
+        else:
+            print(params)
 
-        print("Deep Learning is learning\n")
+        print('...Doing Grid Search...')
+        cv = GridSearchCV(model, params, cv = 10, scoring = 'neg_mean_squared_error', n_jobs=1, refit = True)
 
-        clf = MLPClassifier(solver=solver,activation=activation)
+        cv.fit(X_train, y_train)
 
-        #fit(説明変数, 目的変数).predict(トレーニングデータ)
-        output = clf.fit(x_df,y_df).predict(test_df).astype(int)
-        return output
+        self._best_params = cv.best_params_
+        self._learned_model = cv.best_estimator_
+
+        phelper.PrintHelper.print_title('Best Params')
+        print(cv.best_params_)
+
+        self._learned_model = cv
+
+        # Accuracy Score
+        print('...Predicting Test Data...')
+        predicted_result = self._learned_model.predict(X_test).astype(int)
+
+        phelper.PrintHelper.print_title('Accuracy Score')
+        print(accuracy_score(y_test,predicted_result))
+
+        return True
+
+    def predict(self,test_df):
+        #checking matching between test_df.columns and x_df.columns
+        if not dfc.DataFrameChecker.is_columns_matched(self._df,test_df):
+            return None
+
+        return self._learned_model.predict(test_df).astype(int)
