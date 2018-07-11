@@ -11,6 +11,23 @@ import sys as sys
 import traceback
 
 import Preprocessing.Preprocessing as prep
+import PrintHelper.PrintHelper as phelper
+
+_PROCESSING_MANAGER_COMMANDS_ = {
+    "(d):               Drop columns.",
+    "(median):          Complete with median.",
+    "(mean):            Complete with mean.",
+    "(most frequent):   Complerte with most frequent",
+    "(tw):              Time to weekday.",
+    "(td):              Time to datetime.",
+    "(n):               Nomilize data",
+    "(f):               Fill in NaN data with value",
+    "(coi):             Convert objects to int",
+    "(cib):             Covnert int to boolean",
+    "(s):               Sum two columns",
+    "(del outlier):     Delete outlier",
+    "(cancel):          Cancel."
+}
 
 class PreprocessingManager:
 
@@ -20,21 +37,8 @@ class PreprocessingManager:
 
     def accept_command(self):
         while True:
-            print("\n******** Command Menu ************")
-            print("(d):Drop columns.")
-            print("(median):Complete with median.")
-            print("(mean):Complete with mean.")
-            print("(most frequent);Complerte with most frequent")
-            print("(tw): Time to weekday.")
-            print("(td): Time to datetime.")
-            print("(n): Nomilize data")
-            print("(f): fill in NaN data with value")
-            print("(coi): convert objects to int")
-            print("(cib): covnert int to boolean")
-            print("(s): sum two columns")
-            print("(del outlier): delete outlier")
-            print("(cancel): Cancel.")
-            print("**********************************\n")
+            phelper.PrintHelper.print_command_menu(_PROCESSING_MANAGER_COMMANDS_)
+
             ans = input("Please input command: ")
             if ans == "d":
                 return self._invoke_drop()

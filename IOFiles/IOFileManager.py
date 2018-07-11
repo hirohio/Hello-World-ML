@@ -1,8 +1,6 @@
 import pandas as pd
-
 import sys as sys
 import traceback
-
 import IOFiles.IOFile as iof
 import PrintHelper.PrintHelper as phelper
 

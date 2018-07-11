@@ -16,6 +16,19 @@ import Graphs.GraphsManager as grh
 import Preprocessing.PreprocessingManager as pp
 import Algorithms.AlgorithmsManager as alg
 import IOFiles.IOFileManager as iof
+import PrintHelper.PrintHelper as phelper
+
+_MAIN_MENU_COMMANDS_ = {
+        "(imf):     Import csv file.",
+        "(exf):     Export csv file.",
+        "(g):       Graphs menu.",
+        "(p):       Preprocessing menu.",
+        "(a):       Algorithms menu.",
+        "(i):       Inforamtion of read data.",
+        "(h):       Header of the data.",
+        "(t):       Tail of the data.",
+        "(d):       Describe the data.",
+}
 
 ## main function for command line ##
 if __name__ == '__main__':
@@ -44,17 +57,8 @@ if __name__ == '__main__':
             sys.exit()
 
     while True:
-        print("\n******** Command Menu ************")
-        print("(imf):import csv file.")
-        print("(exf):export csv file.")
-        print("(g):Graphs menu.")
-        print("(p):Preprocessing menu.")
-        print("(a):Algorithms menu.")
-        print("(i):Inforamtion of read data.")
-        print("(h):Header of the data.")
-        print("(t):Tail of the data.")
-        print("(d):Describe the data.")
-        print("**********************************\n")
+        phelper.PrintHelper.print_command_menu(_MAIN_MENU_COMMANDS_)
+
         ans = input("Please input command: ")
 
         if ans == "g":
