@@ -39,6 +39,7 @@ class PrintHelper:
 
     @classmethod
     def print_command_menu(cls, commands):
+
         print("\n******************** Command Menu ********************")
         for command in commands:
             print(command)

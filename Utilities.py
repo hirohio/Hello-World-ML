@@ -1,13 +1,3 @@
-import csv as csv
-import numpy as np
-import pandas as pd
-from scipy import stats
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-
 import sys as sys
 import traceback
 
@@ -18,7 +8,7 @@ import Algorithms.AlgorithmsManager as alg
 import IOFiles.IOFileManager as iof
 import PrintHelper.PrintHelper as phelper
 
-_MAIN_MENU_COMMANDS_ = {
+_MAIN_MENU_COMMANDS_ = [
         "(imf):     Import csv file.",
         "(exf):     Export csv file.",
         "(g):       Graphs menu.",
@@ -28,7 +18,7 @@ _MAIN_MENU_COMMANDS_ = {
         "(h):       Header of the data.",
         "(t):       Tail of the data.",
         "(d):       Describe the data.",
-}
+]
 
 ## main function for command line ##
 if __name__ == '__main__':

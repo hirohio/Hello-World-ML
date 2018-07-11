@@ -4,12 +4,21 @@ import pandas as pd
 from scipy import stats
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
+
+import PrintHelper.PrintHelper as phelper
 import sys as sys
 import traceback
 import Graphs as gph
+
+_GRAPHS_MANAGER_COMMANDS_ = [
+    '(h):           Histgram Plot.',
+    '(c):           Count Plot.',
+    '(p):           Point Plot.',
+    '(s):           Scatter Plot.',
+    '(b):           Box Plot.',
+    '(pair):        Pair Plot.',
+    '(cancel):      Cancel.'
+]
 
 class GraphsManager:
     def __init__(self,df):
@@ -18,15 +27,7 @@ class GraphsManager:
 
     def accept_command(self):
         while True:
-            print("\n******** Command Menu ************")
-            print("(h):Histgram Plot.")
-            print("(c):Count Plot.")
-            print("(p):Point Plot.")
-            print("(s):Scatter Plot.")
-            print("(b):Box Plot.")
-            print("(pair):Pair Plot.")
-            print("(cancel):Cancel.")
-            print("**********************************\n")
+            phelper.PrintHelper.print_command_menu(_GRAPHS_MANAGER_COMMANDS_)
             ans = input("Please input command: ")
             if ans == "h":
                 self._invoke_hist_plot()

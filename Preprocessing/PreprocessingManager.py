@@ -1,19 +1,11 @@
-import csv as csv
-import numpy as np
 import pandas as pd
-from scipy import stats
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
 import sys as sys
 import traceback
 
 import Preprocessing.Preprocessing as prep
 import PrintHelper.PrintHelper as phelper
 
-_PROCESSING_MANAGER_COMMANDS_ = {
+_PROCESSING_MANAGER_COMMANDS_ = [
     "(d):               Drop columns.",
     "(median):          Complete with median.",
     "(mean):            Complete with mean.",
@@ -27,13 +19,13 @@ _PROCESSING_MANAGER_COMMANDS_ = {
     "(s):               Sum two columns",
     "(del outlier):     Delete outlier",
     "(cancel):          Cancel."
-}
+]
 
 class PreprocessingManager:
 
     def __init__(self, df):
-        self.df = df
-        self.pp = prep.Preprocessing(self.df)
+        self._df = df
+        self._pp = prep.Preprocessing(self._df)
 
     def accept_command(self):
         while True:
@@ -74,70 +66,85 @@ class PreprocessingManager:
     def _invoke_complement_with_median(self):
         while True:
             column = input("Plese input column name: ")
-            if not column in self.df.columns:
+            if not column in self._df.columns:
                 print(column + " is not exist!!")
                 continue
             else:
-                return self.pp.complement_with_median(column)
+                return self._pp.complement_with_median(column)
     def _invoke_complement_with_mean(self):
         while True:
             column = input("Plese input column name: ")
-            if not column in self.df.columns:
+            if not column in self._df.columns:
                 print(column + " is not exist!!")
                 continue
             else:
-                return self.pp.complement_with_mean(column)
+                return self._pp.complement_with_mean(column)
+
     def _invoke_complement_with_mostfrequency(self):
         while True:
             column = input("Plese input column name: ")
-            if not column in self.df.columns:
+            if not column in self._df.columns:
                 print(column + " is not exist!!")
                 continue
             else:
-                return self.pp.complement_with_mostfrequency(column)
+                return self._pp.complement_with_mostfrequency(column)
 
     def _invoke_drop(self):
         while True:
             ans = input("Please input coulmn name or NaN: ")
             if ans == "NaN":
-                return self.pp.drop_nan()
+                return self._pp.drop_nan()
             elif ans == "":
                 continue
-            elif not self.pp.is_column_exist(ans):
+            elif ans not in self._df.columns:
                 print(ans + " is not exist!!")
                 continue
             else:
-                return self.pp.drop(ans)
+                return self._pp.drop(ans)
 
     def _invoke_convert_time_to_weekdays(self):
         while True:
             ans = input("Please input column name you want to convert to weekday: ")
-            if not self.pp.is_column_exist(ans):
+            if ans not in self._df.columns:
                 print(ans + "is not exist!!")
                 continue
             else:
-                return self.pp.convert_time_to_weekdays(ans)
+                return self._pp.convert_time_to_weekdays(ans)
 
+    '''
+    Convert time to date time as follows
 
+        original data : ['2017-11-07 09:30:38']
+
+        year: (ex),[2017]
+        month:(ex),[11]
+        day: (ex),[7]
+        hour: (ex),[9]
+        minute: (ex),[30]
+        second; (ex),[38]
+        microsecond (ex),[0]
+    '''
     def _invoke_convert_time_to_datetime(self):
         while True:
             ans = input("Please input column name you want to convert to datetime: ")
-            if not self.pp.is_column_exist(ans):
+            if ans not in self._df.columns:
                 print(ans + " is not exist!!")
                 continue
             else:
-                #show list options of 1 line.
-                tmp_df = self.df.iloc[:1,]
-                print("\n******** Command Menu ************")
-                print("original data: ", tmp_df[ans].values)
-                print("year: (ex),",pd.to_datetime(tmp_df[ans]).dt.year.values)
-                print("month:(ex),",pd.to_datetime(tmp_df[ans]).dt.month.values)
-                print("day: (ex),",pd.to_datetime(tmp_df[ans]).dt.day.values)
-                print("hour: (ex),",pd.to_datetime(tmp_df[ans]).dt.hour.values)
-                print("minute: (ex),",pd.to_datetime(tmp_df[ans]).dt.minute.values)
-                print("second; (ex),",pd.to_datetime(tmp_df[ans]).dt.second.values)
-                print("microsecond (ex),",pd.to_datetime(tmp_df[ans]).dt.microsecond.values)
-                print("**********************************\n")
+                #show example with 1 line.
+                tmp_df = self._df.iloc[:1,]
+
+                commands = [
+                'original data: '   + str(tmp_df[ans].values),
+                'year: (ex),'       + str(pd.to_datetime(tmp_df[ans]).dt.year.values),
+                'month:(ex),'       + str(pd.to_datetime(tmp_df[ans]).dt.month.values),
+                'day: (ex),'        + str(pd.to_datetime(tmp_df[ans]).dt.day.values),
+                'hour: (ex),'       + str(pd.to_datetime(tmp_df[ans]).dt.hour.values),
+                'minute: (ex),'     + str(pd.to_datetime(tmp_df[ans]).dt.minute.values),
+                'second; (ex),'     + str(pd.to_datetime(tmp_df[ans]).dt.second.values),
+                'microsecond (ex),' + str(pd.to_datetime(tmp_df[ans]).dt.microsecond.values)
+                ]
+                phelper.PrintHelper.print_command_menu(commands)
                 break
 
         while True:
@@ -145,9 +152,9 @@ class PreprocessingManager:
                 print("Please input one of following instructions.")
                 ans_time = input("year, month, day, hour, minute, second, microsecond, (c):Cancel :")
                 if ans_time == "c":
-                    return self.df
+                    return self._df
                 else:
-                    return  self.pp.convert_time_to_datetime(ans,ans_time)
+                    return  self._pp.convert_time_to_datetime(ans,ans_time)
             except prep.NotSupportedError:
                 print(ans + " is not supported!!")
                 continue
@@ -155,7 +162,7 @@ class PreprocessingManager:
     def _invoke_convert_nomalize(self):
         while True:
             ans = input("Please input column name you want to convert to datetime: ")
-            if not self.pp.is_column_exist(ans):
+            if ans not in self._df.columns:
                 print(ans + " is not exist!!")
                 continue
             else:
@@ -164,67 +171,67 @@ class PreprocessingManager:
     def _invoke_fill_in_NaN(self):
         while True:
             ans = input("Please input column name you want to fill in: ")
-            if not self.pp.is_column_exist(ans):
+            if ans not in self._df.columns:
                 print(ans + " is not exist!!")
                 continue
             else:
                 break
         while True:
-            print(self.df[ans].value_counts())
+            print(self._df[ans].value_counts())
             ans_value = input("Please input value name you want to fill in NaN: ")
-            if not ans_value in self.df[ans].unique():
+            if not ans_value in self._df[ans].unique():
                 print(ans_value + " is not exist!!")
                 continue
             else:
-                return self.pp.fill_in_NaN(ans,ans_value)
+                return self._pp.fill_in_NaN(ans,ans_value)
 
     def _invoke_convert_object_to_int(self):
         while True:
             ans = input("Please input column name you want to convert to string from object: ")
-            if not self.pp.is_column_exist(ans):
+            if ans not in self._df.columns:
                 print(ans + " is not exist!!")
                 continue
             else:
-                return self.pp.convert_object_to_int(ans)
+                return self._pp.convert_object_to_int(ans)
 
     def _invoke_sum_columns(self):
         while True:
-            print(self.df.columns)
+            print(self._df.columns)
             column_name = input("Please input 1st column name you want to Add: ")
-            if not column_name in self.df.columns:
+            if not column_name in self._df.columns:
                 print(column_name + " is not existed!!")
                 continue
 
             column_name2 = input("Please input 2nd column name you want to Add: ")
-            if not column_name2 in self.df.columns:
+            if not column_name2 in self._df.columns:
                 print(column_name2 + " is not existed!!")
                 continue
 
             new_column_name = input("Please input new column name you want to create: ")
-            if new_column_name in self.df.columns:
+            if new_column_name in self._df.columns:
                 print(new_column_name + " is existed!!")
                 continue
-            return self.pp.sum_columns(column_name,column_name2,new_column_name)
+            return self._pp.sum_columns(column_name,column_name2,new_column_name)
 
     def _invoke_convert_columns_to_boolean(self):
         while True:
-            print(self.df.columns)
+            print(self._df.columns)
             column_name = input("Please input column name you want to convert: ")
-            if not column_name in self.df.columns:
+            if not column_name in self._df.columns:
                 print(column_name + " is not exist!!")
                 continue
             new_column_name = input("Please input new column name you want to create: ")
-            if new_column_name in self.df.columns:
+            if new_column_name in self._df.columns:
                 print(new_column_name + " is existed!!")
                 continue
             sleshhold = input("Please input sleshhold value: ")
-            return self.pp.convert_columns_to_boolean(column_name,new_column_name,int(sleshhold))
+            return self._pp.convert_columns_to_boolean(column_name,new_column_name,int(sleshhold))
 
     def _invoke_delete_outlier(self):
         while True:
-            self.df.info()
+            self._df.info()
             column_name = input("Please input column name you want to delete when it is ourlier: ")
-            if not column_name in self.df.columns:
+            if not column_name in self._df.columns:
                 print(column_name + " is not existed!!")
                 continue
             else:
@@ -238,4 +245,4 @@ class PreprocessingManager:
             else:
                 break
 
-        return self.pp.delete_outlier(column_name,float(bias))
+        return self._pp.delete_outlier(column_name,float(bias))

@@ -16,8 +16,6 @@ class Preprocessing:
     def __init__(self, df):
         self.df = df
         self.datetime_kinds = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond']
-    def is_column_exist(self, column):
-        return column in self.df.columns
 
     def complement_with_median(self,column):
         #median = self.df[column].dropna().median()

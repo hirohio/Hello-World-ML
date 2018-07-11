@@ -3,9 +3,17 @@ import Algorithms.Deeplearning as deeplearning
 import Algorithms.VotingClassifier as votingclassfier
 import IOFiles.IOFileManager as iof
 import Algorithms.Utilities.DataFrameChecker as dfc
+import PrintHelper.PrintHelper as phelper
 
 RANDOM_FOREST_PARAMETER_PATH = "/Algorithms/Data/RandomForestParameters_test.yml"
 DEEP_LEARNING_PARAMETER_PATH = "/Algorithms/Data/DeepLearningParameters_test.yml"
+
+_ALGORITHMS_MANAGER_COMMANDS_ = [
+    "(r):       RandomForest (ensemble)",
+    "(d):       DeepLearning",
+    "(v):       VotingClassfier (ensemble)",
+    "(c):       Cancel"
+]
 
 class AlgorithmsManager:
 
@@ -18,12 +26,8 @@ class AlgorithmsManager:
 
     def accept_command(self):
         while True:
-            print("\n******** Command Menu ************")
-            print("(r):RandomForest (ensemble)")
-            print("(d):DeepLearning")
-            print("(v):VotingClassfier (ensemble)")
-            print("(c):Cancel")
-            print("**********************************\n")
+            phelper.PrintHelper.print_command_menu(_ALGORITHMS_MANAGER_COMMANDS_)
+
             ans = input("Please input command: ")
             if ans == "r":
                 self._invoke_random_forest()
