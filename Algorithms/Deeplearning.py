@@ -62,7 +62,8 @@ class DeepLearningManager:
 
     def predict(self,test_df):
         #checking matching between test_df.columns and x_df.columns
-        if not dfc.DataFrameChecker.is_columns_matched(self._df,test_df):
-            return None
+        if dfc.DataFrameChecker.is_columns_matched(self._X,test_df):
+            return self._learned_model.predict(test_df).astype(int)
 
-        return self._learned_model.predict(test_df).astype(int)
+        phelper.PrintHelper.print_error('columns are not matched !!')
+        return None

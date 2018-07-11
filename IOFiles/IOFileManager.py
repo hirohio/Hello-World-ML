@@ -1,14 +1,13 @@
-import csv as csv
-import numpy as np
 import pandas as pd
-from scipy import stats
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.model_selection import train_test_split
 
 import sys as sys
 import traceback
+
 import IOFiles.IOFile as iof
+import PrintHelper.PrintHelper as phelper
+
+from os import path,pardir
+ROOT_DIR = path.abspath(path.join(path.abspath(path.dirname(__file__)),pardir))
 
 class IOFileManager:
     def __init__(self):
@@ -18,10 +17,14 @@ class IOFileManager:
         while True:
             try:
                 file_name = input("Please input file. : ")
-                df = self.io_file.import_from_csv(file_name)
+
+                if file_name[:1] is not '/':
+                    file_name = '/' + file_name
+                print ('file path is ' + ROOT_DIR + file_name)
+                df = self.io_file.import_from_csv(ROOT_DIR + file_name)
                 return df
             except FileNotFoundError:
-                print(file_name + " is not exist.")
+                print(ROOT_DIR + file_name + " is not exist.")
                 continue
             except:
                 print("Unexpected Exception")
@@ -31,14 +34,21 @@ class IOFileManager:
     #for command line arguments
     def initial_import_from_csv(self, file_name):
         try:
-            df = self.io_file.import_from_csv(file_name)
+            if file_name[:1] is not '/':
+                file_name = '/' + file_name
+            print ('file path is ' + ROOT_DIR + file_name)
+
+            df = self.io_file.import_from_csv(ROOT_DIR + file_name)
         except FileNotFoundError:
             df = self.import_from_csv()
         return df
 
     def read_from_yaml(self, file_name):
         try:
-            data = self.io_file.read_from_yaml(file_name)
+            if file_name[:1] is not '/':
+                file_name = '/' + file_name
+            print ('file path is ' + ROOT_DIR + file_name)
+            data = self.io_file.read_from_yaml(ROOT_DIR + file_name)
         except FileNotFoundError:
             data = None
         return data
@@ -47,42 +57,20 @@ class IOFileManager:
         while True:
             try:
                 file_name = input("Please input output file name. : ")
-                self.io_file.export_to_csv('/Data/' + file_name,df)
+                if file_name[:1] is not '/':
+                    file_name = '/' + file_name
+                print ('file path is ' + ROOT_DIR + file_name)
+                self.io_file.export_to_csv(ROOT_DIR + file_name,df)
                 return df
             except:
                 print("Unexpected Exception")
                 traceback.print_exc()
                 sys.exit()
 
-
     def export_output(self,original_test_df,output_df,predicted_column):
-        print('*-----------------------------*')
-        print('|     Original Test Data      |')
-        print('*-----------------------------*')
-        original_test_df.info()
-        ans = input("(w):Write output to file, (cancel) Not write output to file: ")
-        while True:
-            if ans == "w":
-                while True:
-                    try:
-                        id_column = input("Input id column for output: ")
-                        ids = original_test_df[id_column]
-                        break
-                    except KeyError:
-                        print("Wrong column name or the column is not exist")
-                        continue
-                    except:
-                        print("Unexpected Exception")
-                        traceback.print_exc()
-                        sys.exit()
 
-                file_name = input("Please write output file name: ")
-                output_file = open(file_name, "w")
-                file_object = csv.writer(output_file)
-                file_object.writerow([id_column, predicted_column])
-                file_object.writerows(zip(ids, output_df))
-                output_file.close()
-                break
-
-            elif ans == "cancel":
-                break
+        columns = ['temp']
+        tmp_df = pd.DataFrame(output_df,columns=columns)
+        original_test_df[predicted_column] = tmp_df['temp']
+        print(original_test_df.head())
+        self.export_to_csv(original_test_df)

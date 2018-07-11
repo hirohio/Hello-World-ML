@@ -9,7 +9,7 @@ class PrintHelper:
     > *--------------------------------------------------*
     '''
     @classmethod
-    def print_title(self,message):
+    def print_title(cls,message):
 
         MAX_MESSAGE_LENGTH = 50
 
@@ -32,3 +32,7 @@ class PrintHelper:
         print('\n'+str_bar)
         print(str_mes)
         print(str_bar)
+
+    @classmethod
+    def print_error(cls,message):
+        print('[Error]: ' + message)

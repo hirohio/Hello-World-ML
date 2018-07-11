@@ -73,9 +73,11 @@ class AlgorithmsManager:
                 continue
 
         output_df = rf.predict(test_df)
-
-        print("Exporting File\n")
-        io_file.export_output(test_df,output_df,prediction_column)
+        if not output_df is None:
+            print("Exporting File\n")
+            io_file.export_output(test_df,output_df,prediction_column)
+        else:
+            phelper.PrintHelper.print_error('Prediction data was failed!!')
 
     def _invoke_deep_learning(self):
         # Check object type is existed in data frame
