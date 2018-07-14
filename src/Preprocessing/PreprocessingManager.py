@@ -1,7 +1,9 @@
+# External Modules
 import pandas as pd
 import sys as sys
 import traceback
 
+# Internal Modules
 import Preprocessing.Preprocessing as prep
 import PrintHelper.PrintHelper as phelper
 
@@ -22,7 +24,10 @@ _PROCESSING_MANAGER_COMMANDS_ = [
 ]
 
 class PreprocessingManager:
+    """Preprocessing Manager
+    This modules accepts commadn to prepreocessing data.
 
+    """
     def __init__(self, df):
         self._df = df
         self._pp = prep.Preprocessing(self._df)
@@ -111,20 +116,23 @@ class PreprocessingManager:
             else:
                 return self._pp.convert_time_to_weekdays(ans)
 
-    '''
-    Convert time to date time as follows
 
-        original data : ['2017-11-07 09:30:38']
-
-        year: (ex),[2017]
-        month:(ex),[11]
-        day: (ex),[7]
-        hour: (ex),[9]
-        minute: (ex),[30]
-        second; (ex),[38]
-        microsecond (ex),[0]
-    '''
     def _invoke_convert_time_to_datetime(self):
+        """Convert time to date time as follows
+        This method convert time to date time as follows
+
+
+        Examples:
+            original data : ['2017-11-07 09:30:38']
+
+            year: (ex),[2017]
+            month:(ex),[11]
+            day: (ex),[7]
+            hour: (ex),[9]
+            minute: (ex),[30]
+            second; (ex),[38]
+            microsecond (ex),[0]
+        """
         while True:
             ans = input("Please input column name you want to convert to datetime: ")
             if ans not in self._df.columns:

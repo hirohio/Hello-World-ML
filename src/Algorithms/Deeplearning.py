@@ -1,13 +1,15 @@
+# External Libraries
 import numpy as np
-
-from sklearn.neural_network import MLPClassifier
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
+from sklearn.neural_network import MLPClassifier
+
+# Internal Libraries
 import Algorithms.Utilities.DataFrameChecker as dfc
 import PrintHelper.PrintHelper as phelper
 
-class DeepLearningManager:
+class DeepLearning:
 
     def __init__(self,df):
         self._df = df

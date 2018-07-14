@@ -1,18 +1,41 @@
+# External Libraries
 import numpy as np
-
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+# Internal Libraries
 import Algorithms.Utilities.DataFrameChecker as dfc
 import PrintHelper.PrintHelper as phelper
 
-class RandomForestManager:
+class RandomForest:
+    """RandomFroest Class.
 
+    """
     def __init__(self,df):
+        """
+        Constracter.
+
+        Args:
+            df (Dataframe): Dataframe to learn.
+        """
         self._df = df
 
     def learn(self,column,params):
+        """Randomforest learns data in dataframe.
+
+        Args:
+            column (str): data you want to prdict.
+            params (list): parameter for Searching.
+
+        Returns:
+            bool: Suecceded or Failed.
+
+        Examples:
+
+
+        """
         if dfc.DataFrameChecker.is_df_num(self._df) is False:
             return False
 
@@ -34,7 +57,6 @@ class RandomForestManager:
         phelper.PrintHelper.print_title('Params from a file')
         print(params)
 
-        # 評価関数を指定
         #scores = ['accuracy', 'precision', 'recall']
         if params == None:
             params = model.get_params()
@@ -69,6 +91,16 @@ class RandomForestManager:
         return True
 
     def predict(self,test_df):
+        """
+        Randomforest predict data.
+
+        Args:
+            test_df (str): data you want to prdict.
+
+        Returns:
+            Dataframe: Dataframe with predict data or None.
+
+        """
         #checking matching between test_df.columns and x_df.columns
         if dfc.DataFrameChecker.is_columns_matched(self._X,test_df):
             return self._learned_model.predict(test_df).astype(int)

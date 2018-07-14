@@ -13,7 +13,7 @@ import sys as sys
 import traceback
 
 
-class VotingClassifierManager:
+class VotingClassifier:
 
     def __init__(self,df):
         self._df = df

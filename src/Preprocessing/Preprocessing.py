@@ -1,18 +1,23 @@
 import csv as csv
 import numpy as np
 import pandas as pd
-from scipy import stats
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys as sys
+import traceback
+
+from scipy import stats
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import Imputer
-import sys as sys
-import traceback
 
 class Preprocessing:
+    """Preprocessing
+
+    """
+
     def __init__(self, df):
         self.df = df
         self.datetime_kinds = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond']

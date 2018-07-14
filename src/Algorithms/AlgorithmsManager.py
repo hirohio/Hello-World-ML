@@ -1,12 +1,12 @@
 import Algorithms.RandomForest as randforest
 import Algorithms.Deeplearning as deeplearning
 import Algorithms.VotingClassifier as votingclassfier
-import IOFiles.IOFileManager as iof
 import Algorithms.Utilities.DataFrameChecker as dfc
+import IOFiles.IOFileManager as iof
 import PrintHelper.PrintHelper as phelper
 
-RANDOM_FOREST_PARAMETER_PATH = "/Algorithms/Data/RandomForestParameters_test.yml"
-DEEP_LEARNING_PARAMETER_PATH = "/Algorithms/Data/DeepLearningParameters_test.yml"
+_RANDOM_FOREST_PARAMETER_PATH = "/Algorithms/Data/RandomForestParameters_test.yml"
+_DEEP_LEARNING_PARAMETER_PATH = "/Algorithms/Data/DeepLearningParameters_test.yml"
 
 _ALGORITHMS_MANAGER_COMMANDS_ = [
     "(r):       RandomForest (ensemble)",
@@ -16,8 +16,19 @@ _ALGORITHMS_MANAGER_COMMANDS_ = [
 ]
 
 class AlgorithmsManager:
+    """AlgorithmManager Class.
+    This class accepts commands and execute machine learning algorithms.
+
+    """
 
     def __init__(self,df):
+        """
+        This method is a constracter.
+
+        Args:
+            df: Dataframe to execute Machine Learnng.
+
+        """
         self._df = df
 
     @property
@@ -25,6 +36,18 @@ class AlgorithmsManager:
         return self._df
 
     def accept_command(self):
+        """
+        This method acccepts commands from userself and invoke algorithm classes.
+
+        Examples:
+            >>> AlgorithmManager(df).accept_command()
+            ******************** Command Menu ********************
+            (r):       RandomForest (ensemble)
+            (d):       DeepLearning
+            (v):       VotingClassfier (ensemble)
+            (c):       Cancel
+            ******************************************************
+        """
         while True:
             phelper.PrintHelper.print_command_menu(_ALGORITHMS_MANAGER_COMMANDS_)
 
@@ -43,6 +66,11 @@ class AlgorithmsManager:
                 continue
 
     def _invoke_random_forest(self):
+        """
+        This method invoke random forest.
+        It accepts some input for random forest from user.
+        """
+
         # Check object type is existed in data frame
         if dfc.DataFrameChecker.is_df_num(self._df) is False:
             print('Random Forest can not accept these types but int or float')
@@ -51,7 +79,7 @@ class AlgorithmsManager:
         print("Following data is referd for training")
         self._df.info()
 
-        rf = randforest.RandomForestManager(self._df)
+        rf = randforest.RandomForest(self._df)
 
         while True:
             prediction_column = input("Input column you want to predict: ")
@@ -60,7 +88,7 @@ class AlgorithmsManager:
 
         # read parameter from a file.
         io_file = iof.IOFileManager()
-        params = io_file.read_from_yaml(RANDOM_FOREST_PARAMETER_PATH)
+        params = io_file.read_from_yaml(_RANDOM_FOREST_PARAMETER_PATH)
 
         rf.learn(prediction_column,params)
 
@@ -84,6 +112,11 @@ class AlgorithmsManager:
             phelper.PrintHelper.print_error('Prediction data was failed!!')
 
     def _invoke_deep_learning(self):
+        """
+        This method invoke deep learning.
+        It accepts some input for deep learning from user.
+        """
+
         # Check object type is existed in data frame
         if dfc.DataFrameChecker.is_df_num(self._df) is False:
             print('Deep Learning can not accept these types but int or float')
@@ -91,7 +124,7 @@ class AlgorithmsManager:
 
         print("Following data is referd for training")
         self._df.info()
-        dl = deeplearning.DeepLearningManager(self._df)
+        dl = deeplearning.DeepLearning(self._df)
 
         while True:
             prediction_column = input("Input column you want to predict: ")
@@ -100,7 +133,7 @@ class AlgorithmsManager:
 
         # read parameter from a file.
         io_file = iof.IOFileManager()
-        params = io_file.read_from_yaml(DEEP_LEARNING_PARAMETER_PATH)
+        params = io_file.read_from_yaml(_DEEP_LEARNING_PARAMETER_PATH)
 
         if not dl.learn(prediction_column,params):
             print('Deep Learning was failed')
@@ -124,9 +157,12 @@ class AlgorithmsManager:
         io_file.export_output(test_df,output_df,prediction_column)
 
     def _invoke_voting_classfier(self):
+        """
+        This method invvoke voting classfier.
+        """
         print("Following data is referd for training")
         self._df.info()
-        vc = votingclassfier.VotingClassifierManager(self._df)
+        vc = votingclassfier.VotingClassifier(self._df)
 
         while True:
             prediction_column = input("Input column you want to predict: ")

@@ -1,7 +1,8 @@
+# External Modules
 import sys as sys
 import traceback
 
-# Our libraries
+# Internal Modules
 import Graphs.GraphsManager as grh
 import Preprocessing.PreprocessingManager as pp
 import Algorithms.AlgorithmsManager as alg
@@ -20,8 +21,19 @@ _MAIN_MENU_COMMANDS_ = [
         "(d):       Describe the data.",
 ]
 
-## main function for command line ##
-if __name__ == '__main__':
+
+def main():
+    """Entry point of this modules.
+
+    1, If user inputs csv file name in command-line arguments, this function tries to read the file.
+
+    2, If reading the file was failed, this method requires csv file name to user.
+
+    3, If this function succeeded in reading file, this method reqires commands.
+
+    4, This method navigates other command accepters as commands user input.
+    """
+
     argvs = sys.argv
     argc = len(argvs)
 
@@ -78,3 +90,7 @@ if __name__ == '__main__':
             continue
         else:
             print(ans + " is not supported command!!\n")
+
+## main function for command line ##
+if __name__ == '__main__':
+    main()
