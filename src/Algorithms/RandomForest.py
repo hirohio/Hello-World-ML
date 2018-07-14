@@ -7,7 +7,7 @@ from sklearn.metrics import accuracy_score
 
 # Internal Libraries
 import Algorithms.Utilities.DataFrameChecker as dfc
-import PrintHelper.PrintHelper as phelper
+import PrintHelpers.PrintHelper as phelper
 
 class RandomForest:
     """RandomFroest Class.

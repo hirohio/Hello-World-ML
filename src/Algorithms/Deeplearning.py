@@ -7,7 +7,7 @@ from sklearn.neural_network import MLPClassifier
 
 # Internal Libraries
 import Algorithms.Utilities.DataFrameChecker as dfc
-import PrintHelper.PrintHelper as phelper
+import PrintHelpers.PrintHelper as phelper
 
 class DeepLearning:
 

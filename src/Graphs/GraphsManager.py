@@ -1,7 +1,10 @@
-import PrintHelper.PrintHelper as phelper
+# External Modules
 import sys as sys
 import traceback
-import Graphs.Graphs as gph
+
+# Internal Modules
+import Graphs.GraphsExecuter as gph
+import PrintHelpers.PrintHelper as phelper
 
 _GRAPHS_MANAGER_COMMANDS_ = [
     '(h):           Histgram Plot.',

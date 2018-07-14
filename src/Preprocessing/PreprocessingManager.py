@@ -4,8 +4,8 @@ import sys as sys
 import traceback
 
 # Internal Modules
-import Preprocessing.Preprocessing as prep
-import PrintHelper.PrintHelper as phelper
+import Preprocessing.PreprocessingExecuter as prep
+import PrintHelpers.PrintHelper as phelper
 
 _PROCESSING_MANAGER_COMMANDS_ = [
     "(d):               Drop columns.",
@@ -95,6 +95,9 @@ class PreprocessingManager:
                 return self._pp.complement_with_mostfrequency(column)
 
     def _invoke_drop(self):
+        """dorp columns from dataframe.
+
+        """
         while True:
             ans = input("Please input coulmn name or NaN: ")
             if ans == "NaN":
@@ -108,6 +111,9 @@ class PreprocessingManager:
                 return self._pp.drop(ans)
 
     def _invoke_convert_time_to_weekdays(self):
+        """Convert time to weekdays.
+        This method covnerts time to weekdays(0,1,2,3,4,5,6,7).
+        """
         while True:
             ans = input("Please input column name you want to convert to weekday: ")
             if ans not in self._df.columns:

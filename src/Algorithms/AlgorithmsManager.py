@@ -3,7 +3,7 @@ import Algorithms.Deeplearning as deeplearning
 import Algorithms.VotingClassifier as votingclassfier
 import Algorithms.Utilities.DataFrameChecker as dfc
 import IOFiles.IOFileManager as iof
-import PrintHelper.PrintHelper as phelper
+import PrintHelpers.PrintHelper as phelper
 
 _RANDOM_FOREST_PARAMETER_PATH = "/Algorithms/Data/RandomForestParameters_test.yml"
 _DEEP_LEARNING_PARAMETER_PATH = "/Algorithms/Data/DeepLearningParameters_test.yml"

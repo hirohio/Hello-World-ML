@@ -7,7 +7,7 @@ import Graphs.GraphsManager as grh
 import Preprocessing.PreprocessingManager as pp
 import Algorithms.AlgorithmsManager as alg
 import IOFiles.IOFileManager as iof
-import PrintHelper.PrintHelper as phelper
+import PrintHelpers.PrintHelper as phelper
 
 _MAIN_MENU_COMMANDS_ = [
         "(imf):     Import csv file.",
