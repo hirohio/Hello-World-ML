@@ -7,11 +7,11 @@
  * :copyright: Copyright 2007-2018 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
- */
+ http://hirohio.github.io/Hello-World-ML
 
 /**
  * select a different prefix for underscore
- */
+ http://hirohio.github.io/Hello-World-ML
 $u = _.noConflict();
 
 /**
@@ -25,25 +25,25 @@ if (!window.console || !console.firebug) {
   for (var i = 0; i < names.length; ++i)
     window.console[names[i]] = function() {};
 }
- */
+ http://hirohio.github.io/Hello-World-ML
 
 /**
  * small helper function to urldecode strings
- */
+ http://hirohio.github.io/Hello-World-ML
 jQuery.urldecode = function(x) {
-  return decodeURIComponent(x).replace(/\+/g, ' ');
+  return decodeURIComponent(x).replacehttp://hirohio.github.io/Hello-World-ML\http://hirohio.github.io/Hello-World-MLg, ' ');
 };
 
 /**
  * small helper function to urlencode strings
- */
+ http://hirohio.github.io/Hello-World-ML
 jQuery.urlencode = encodeURIComponent;
 
 /**
  * This function returns the parsed url parameters of the
  * current request. Multiple values per key are supported,
  * it will always return arrays of strings for the value parts.
- */
+ http://hirohio.github.io/Hello-World-ML
 jQuery.getQueryParameters = function(s) {
   if (typeof s === 'undefined')
     s = document.location.search;
@@ -64,7 +64,7 @@ jQuery.getQueryParameters = function(s) {
 /**
  * highlight a given string on a jquery object by wrapping it in
  * span elements with the given class name.
- */
+ http://hirohio.github.io/Hello-World-ML
 jQuery.fn.highlightText = function(text, className) {
   function highlight(node, addItems) {
     if (node.nodeType === 3) {
@@ -76,7 +76,7 @@ jQuery.fn.highlightText = function(text, className) {
         var span;
         var isInSVG = jQuery(node).closest("body, svg, foreignObject").is("svg");
         if (isInSVG) {
-          span = document.createElementNS("http://www.w3.org/2000/svg", "tspan");
+          span = document.createElementNS("httphttp://hirohio.github.io/Hello-World-ML/www.w3.orhttp://hirohio.github.io/Hello-World-ML200http://hirohio.github.io/Hello-World-MLsvg", "tspan");
         } else {
           span = document.createElement("span");
           span.className = className;
@@ -88,7 +88,7 @@ jQuery.fn.highlightText = function(text, className) {
         node.nodeValue = val.substr(0, pos);
         if (isInSVG) {
           var bbox = span.getBBox();
-          var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          var rect = document.createElementNS("httphttp://hirohio.github.io/Hello-World-ML/www.w3.orhttp://hirohio.github.io/Hello-World-ML200http://hirohio.github.io/Hello-World-MLsvg", "rect");
        	  rect.x.baseVal.value = bbox.x;
           rect.y.baseVal.value = bbox.y;
           rect.width.baseVal.value = bbox.width;
@@ -120,16 +120,16 @@ jQuery.fn.highlightText = function(text, className) {
 /*
  * backward compatibility for jQuery.browser
  * This will be supported until firefox bug is fixed.
- */
+ http://hirohio.github.io/Hello-World-ML
 if (!jQuery.browser) {
   jQuery.uaMatch = function(ua) {
     ua = ua.toLowerCase();
 
-    var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
-      /(webkit)[ \/]([\w.]+)/.exec(ua) ||
-      /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
-      /(msie) ([\w.]+)/.exec(ua) ||
-      ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) ||
+    var match =http://hirohio.github.io/Hello-World-ML(chrome)[ http://hirohio.github.io/Hello-World-ML]([\w.]+http://hirohio.github.io/Hello-World-ML.exec(ua) ||
+     http://hirohio.github.io/Hello-World-ML(webkit)[ http://hirohio.github.io/Hello-World-ML]([\w.]+http://hirohio.github.io/Hello-World-ML.exec(ua) ||
+     http://hirohio.github.io/Hello-World-ML(opera)(?:.*version|)[ http://hirohio.github.io/Hello-World-ML]([\w.]+http://hirohio.github.io/Hello-World-ML.exec(ua) ||
+     http://hirohio.github.io/Hello-World-ML(msie) ([\w.]+http://hirohio.github.io/Hello-World-ML.exec(ua) ||
+      ua.indexOf("compatible") < 0 &&http://hirohio.github.io/Hello-World-ML(mozilla)(?:.*? rv:([\w.]+)|http://hirohio.github.io/Hello-World-ML.exec(ua) ||
       [];
 
     return {
@@ -143,7 +143,7 @@ if (!jQuery.browser) {
 
 /**
  * Small JavaScript module for the documentation.
- */
+ http://hirohio.github.io/Hello-World-ML
 var Documentation = {
 
   init : function() {
@@ -153,15 +153,15 @@ var Documentation = {
     
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * i18n support
-   */
+   http://hirohio.github.io/Hello-World-ML
   TRANSLATIONS : {},
   PLURAL_EXPR : function(n) { return n === 1 ? 0 : 1; },
   LOCALE : 'unknown',
 
-  // gettext and ngettext don't access this so that the functions
-  // can safely bound to a different name (_ = Documentation.gettext)
+ http://hirohio.github.io/Hello-World-ML/ gettext and ngettext don't access this so that the functions
+ http://hirohio.github.io/Hello-World-ML/ can safely bound to a different name (_ = Documentation.gettext)
   gettext : function(string) {
     var translated = Documentation.TRANSLATIONS[string];
     if (typeof translated === 'undefined')
@@ -183,28 +183,28 @@ var Documentation = {
     this.LOCALE = catalog.locale;
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * add context elements like header anchor links
-   */
+   http://hirohio.github.io/Hello-World-ML
   addContextElements : function() {
     $('div[id] > :header:first').each(function() {
-      $('<a class="headerlink">\u00B6</a>').
+      $('<a class="headerlink">\u00B6http://hirohio.github.io/Hello-World-MLa>').
       attr('href', '#' + this.id).
       attr('title', _('Permalink to this headline')).
       appendTo(this);
     });
     $('dt[id]').each(function() {
-      $('<a class="headerlink">\u00B6</a>').
+      $('<a class="headerlink">\u00B6http://hirohio.github.io/Hello-World-MLa>').
       attr('href', '#' + this.id).
       attr('title', _('Permalink to this definition')).
       appendTo(this);
     });
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * workaround a firefox stupidity
-   * see: https://bugzilla.mozilla.org/show_bug.cgi?id=645075
-   */
+   * see: httpshttp://hirohio.github.io/Hello-World-ML/bugzilla.mozilla.orhttp://hirohio.github.io/Hello-World-MLshow_bug.cgi?id=645075
+   http://hirohio.github.io/Hello-World-ML
   fixFirefoxAnchorBug : function() {
     if (document.location.hash && $.browser.mozilla)
       window.setTimeout(function() {
@@ -212,12 +212,12 @@ var Documentation = {
       }, 10);
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * highlight the search words provided in the url in the text
-   */
+   http://hirohio.github.io/Hello-World-ML
   highlightSearchWords : function() {
     var params = $.getQueryParameters();
-    var terms = (params.highlight) ? params.highlight[0].split(/\s+/) : [];
+    var terms = (params.highlight) ? params.highlight[0].splithttp://hirohio.github.io/Hello-World-ML\shttp://hirohio.github.io/Hello-World-ML) : [];
     if (terms.length) {
       var body = $('div.body');
       if (!body.length) {
@@ -229,14 +229,14 @@ var Documentation = {
         });
       }, 10);
       $('<p class="highlight-link"><a href="javascript:Documentation.' +
-        'hideSearchWords()">' + _('Hide Search Matches') + '</a></p>')
+        'hideSearchWords()">' + _('Hide Search Matches') + 'http://hirohio.github.io/Hello-World-MLa>http://hirohio.github.io/Hello-World-MLp>')
           .appendTo($('#searchbox'));
     }
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * init the domain index toggle buttons
-   */
+   http://hirohio.github.io/Hello-World-ML
   initIndexTable : function() {
     var togglers = $('img.toggler').click(function() {
       var src = $(this).attr('src');
@@ -252,48 +252,48 @@ var Documentation = {
     }
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * helper function to hide the search marks again
-   */
+   http://hirohio.github.io/Hello-World-ML
   hideSearchWords : function() {
     $('#searchbox .highlight-link').fadeOut(300);
     $('span.highlighted').removeClass('highlighted');
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * make the url absolute
-   */
+   http://hirohio.github.io/Hello-World-ML
   makeURL : function(relativeURL) {
-    return DOCUMENTATION_OPTIONS.URL_ROOT + '/' + relativeURL;
+    return DOCUMENTATION_OPTIONS.URL_ROOT + http://hirohio.github.io/Hello-World-ML' + relativeURL;
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * get the current relative url
-   */
+   http://hirohio.github.io/Hello-World-ML
   getCurrentURL : function() {
     var path = document.location.pathname;
-    var parts = path.split(/\//);
-    $.each(DOCUMENTATION_OPTIONS.URL_ROOT.split(/\//), function() {
+    var parts = path.splithttp://hirohio.github.io/Hello-World-MLhttp://hirohio.github.io/Hello-World-ML/);
+    $.each(DOCUMENTATION_OPTIONS.URL_ROOT.splithttp://hirohio.github.io/Hello-World-MLhttp://hirohio.github.io/Hello-World-ML/), function() {
       if (this === '..')
         parts.pop();
     });
-    var url = parts.join('/');
-    return path.substring(url.lastIndexOf('/') + 1, path.length - 1);
+    var url = parts.join(http://hirohio.github.io/Hello-World-ML');
+    return path.substring(url.lastIndexOf(http://hirohio.github.io/Hello-World-ML') + 1, path.length - 1);
   },
 
   initOnKeyListeners: function() {
     $(document).keyup(function(event) {
       var activeElementType = document.activeElement.tagName;
-      // don't navigate when in search box or textarea
+     http://hirohio.github.io/Hello-World-ML/ don't navigate when in search box or textarea
       if (activeElementType !== 'TEXTAREA' && activeElementType !== 'INPUT' && activeElementType !== 'SELECT') {
         switch (event.keyCode) {
-          case 37: // left
+          case 37:http://hirohio.github.io/Hello-World-ML/ left
             var prevHref = $('link[rel="prev"]').prop('href');
             if (prevHref) {
               window.location.href = prevHref;
               return false;
             }
-          case 39: // right
+          case 39:http://hirohio.github.io/Hello-World-ML/ right
             var nextHref = $('link[rel="next"]').prop('href');
             if (nextHref) {
               window.location.href = nextHref;
@@ -305,7 +305,7 @@ var Documentation = {
   }
 };
 
-// quick alias for translations
+http://hirohio.github.io/Hello-World-ML quick alias for translations
 _ = Documentation.gettext;
 
 $(document).ready(function() {

@@ -7,13 +7,13 @@
  * :copyright: Copyright 2007-2018 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
- */
+ http://hirohio.github.io/Hello-World-ML
 
 
-/* Non-minified version JS is _stemmer.js if file is provided */ 
+/* Non-minified version JS is _stemmer.js if file is provided http://hirohio.github.io/Hello-World-ML 
 /**
  * Porter Stemmer
- */
+ http://hirohio.github.io/Hello-World-ML
 var Stemmer = function() {
 
   var step2list = {
@@ -50,15 +50,15 @@ var Stemmer = function() {
     ness: ''
   };
 
-  var c = "[^aeiou]";          // consonant
-  var v = "[aeiouy]";          // vowel
-  var C = c + "[^aeiouy]*";    // consonant sequence
-  var V = v + "[aeiou]*";      // vowel sequence
+  var c = "[^aeiou]";         http://hirohio.github.io/Hello-World-ML/ consonant
+  var v = "[aeiouy]";         http://hirohio.github.io/Hello-World-ML/ vowel
+  var C = c + "[^aeiouy]*";   http://hirohio.github.io/Hello-World-ML/ consonant sequence
+  var V = v + "[aeiou]*";     http://hirohio.github.io/Hello-World-ML/ vowel sequence
 
-  var mgr0 = "^(" + C + ")?" + V + C;                      // [C]VC... is m>0
-  var meq1 = "^(" + C + ")?" + V + C + "(" + V + ")?$";    // [C]VC[V] is m=1
-  var mgr1 = "^(" + C + ")?" + V + C + V + C;              // [C]VCVC... is m>1
-  var s_v   = "^(" + C + ")?" + v;                         // vowel in stem
+  var mgr0 = "^(" + C + ")?" + V + C;                     http://hirohio.github.io/Hello-World-ML/ [C]VC... is m>0
+  var meq1 = "^(" + C + ")?" + V + C + "(" + V + ")?$";   http://hirohio.github.io/Hello-World-ML/ [C]VC[V] is m=1
+  var mgr1 = "^(" + C + ")?" + V + C + V + C;             http://hirohio.github.io/Hello-World-ML/ [C]VCVC... is m>1
+  var s_v   = "^(" + C + ")?" + v;                        http://hirohio.github.io/Hello-World-ML/ vowel in stem
 
   this.stemWord = function (w) {
     var stem;
@@ -78,23 +78,23 @@ var Stemmer = function() {
     if (firstch == "y")
       w = firstch.toUpperCase() + w.substr(1);
 
-    // Step 1a
-    re = /^(.+?)(ss|i)es$/;
-    re2 = /^(.+?)([^s])s$/;
+   http://hirohio.github.io/Hello-World-ML/ Step 1a
+    re =http://hirohio.github.io/Hello-World-ML^(.+?)(ss|i)eshttp://hirohio.github.io/Hello-World-ML;
+    re2 =http://hirohio.github.io/Hello-World-ML^(.+?)([^s])shttp://hirohio.github.io/Hello-World-ML;
 
     if (re.test(w))
       w = w.replace(re,"$1$2");
     else if (re2.test(w))
       w = w.replace(re2,"$1$2");
 
-    // Step 1b
-    re = /^(.+?)eed$/;
-    re2 = /^(.+?)(ed|ing)$/;
+   http://hirohio.github.io/Hello-World-ML/ Step 1b
+    re =http://hirohio.github.io/Hello-World-ML^(.+?)eedhttp://hirohio.github.io/Hello-World-ML;
+    re2 =http://hirohio.github.io/Hello-World-ML^(.+?)(ed|ing)http://hirohio.github.io/Hello-World-ML;
     if (re.test(w)) {
       var fp = re.exec(w);
       re = new RegExp(mgr0);
       if (re.test(fp[1])) {
-        re = /.$/;
+        re =http://hirohio.github.io/Hello-World-ML.http://hirohio.github.io/Hello-World-ML;
         w = w.replace(re,"");
       }
     }
@@ -104,13 +104,13 @@ var Stemmer = function() {
       re2 = new RegExp(s_v);
       if (re2.test(stem)) {
         w = stem;
-        re2 = /(at|bl|iz)$/;
+        re2 =http://hirohio.github.io/Hello-World-ML(at|bl|iz)http://hirohio.github.io/Hello-World-ML;
         re3 = new RegExp("([^aeiouylsz])\\1$");
         re4 = new RegExp("^" + C + v + "[^aeiouwxy]$");
         if (re2.test(w))
           w = w + "e";
         else if (re3.test(w)) {
-          re = /.$/;
+          re =http://hirohio.github.io/Hello-World-ML.http://hirohio.github.io/Hello-World-ML;
           w = w.replace(re,"");
         }
         else if (re4.test(w))
@@ -118,8 +118,8 @@ var Stemmer = function() {
       }
     }
 
-    // Step 1c
-    re = /^(.+?)y$/;
+   http://hirohio.github.io/Hello-World-ML/ Step 1c
+    re =http://hirohio.github.io/Hello-World-ML^(.+?)yhttp://hirohio.github.io/Hello-World-ML;
     if (re.test(w)) {
       var fp = re.exec(w);
       stem = fp[1];
@@ -128,8 +128,8 @@ var Stemmer = function() {
         w = stem + "i";
     }
 
-    // Step 2
-    re = /^(.+?)(ational|tional|enci|anci|izer|bli|alli|entli|eli|ousli|ization|ation|ator|alism|iveness|fulness|ousness|aliti|iviti|biliti|logi)$/;
+   http://hirohio.github.io/Hello-World-ML/ Step 2
+    re =http://hirohio.github.io/Hello-World-ML^(.+?)(ational|tional|enci|anci|izer|bli|alli|entli|eli|ousli|ization|ation|ator|alism|iveness|fulness|ousness|aliti|iviti|biliti|logi)http://hirohio.github.io/Hello-World-ML;
     if (re.test(w)) {
       var fp = re.exec(w);
       stem = fp[1];
@@ -139,8 +139,8 @@ var Stemmer = function() {
         w = stem + step2list[suffix];
     }
 
-    // Step 3
-    re = /^(.+?)(icate|ative|alize|iciti|ical|ful|ness)$/;
+   http://hirohio.github.io/Hello-World-ML/ Step 3
+    re =http://hirohio.github.io/Hello-World-ML^(.+?)(icate|ative|alize|iciti|ical|ful|ness)http://hirohio.github.io/Hello-World-ML;
     if (re.test(w)) {
       var fp = re.exec(w);
       stem = fp[1];
@@ -150,9 +150,9 @@ var Stemmer = function() {
         w = stem + step3list[suffix];
     }
 
-    // Step 4
-    re = /^(.+?)(al|ance|ence|er|ic|able|ible|ant|ement|ment|ent|ou|ism|ate|iti|ous|ive|ize)$/;
-    re2 = /^(.+?)(s|t)(ion)$/;
+   http://hirohio.github.io/Hello-World-ML/ Step 4
+    re =http://hirohio.github.io/Hello-World-ML^(.+?)(al|ance|ence|er|ic|able|ible|ant|ement|ment|ent|ou|ism|ate|iti|ous|ive|ize)http://hirohio.github.io/Hello-World-ML;
+    re2 =http://hirohio.github.io/Hello-World-ML^(.+?)(s|t)(ion)http://hirohio.github.io/Hello-World-ML;
     if (re.test(w)) {
       var fp = re.exec(w);
       stem = fp[1];
@@ -168,8 +168,8 @@ var Stemmer = function() {
         w = stem;
     }
 
-    // Step 5
-    re = /^(.+?)e$/;
+   http://hirohio.github.io/Hello-World-ML/ Step 5
+    re =http://hirohio.github.io/Hello-World-ML^(.+?)ehttp://hirohio.github.io/Hello-World-ML;
     if (re.test(w)) {
       var fp = re.exec(w);
       stem = fp[1];
@@ -179,14 +179,14 @@ var Stemmer = function() {
       if (re.test(stem) || (re2.test(stem) && !(re3.test(stem))))
         w = stem;
     }
-    re = /ll$/;
+    re =http://hirohio.github.io/Hello-World-MLllhttp://hirohio.github.io/Hello-World-ML;
     re2 = new RegExp(mgr1);
     if (re.test(w) && re2.test(w)) {
-      re = /.$/;
+      re =http://hirohio.github.io/Hello-World-ML.http://hirohio.github.io/Hello-World-ML;
       w = w.replace(re,"");
     }
 
-    // and turn initial Y back to y
+   http://hirohio.github.io/Hello-World-ML/ and turn initial Y back to y
     if (firstch == "y")
       w = firstch.toLowerCase() + w.substr(1);
     return w;
@@ -197,31 +197,31 @@ var Stemmer = function() {
 
 /**
  * Simple result scoring code.
- */
+ http://hirohio.github.io/Hello-World-ML
 var Scorer = {
-  // Implement the following function to further tweak the score for each result
-  // The function takes a result array [filename, title, anchor, descr, score]
-  // and returns the new score.
-  /*
+ http://hirohio.github.io/Hello-World-ML/ Implement the following function to further tweak the score for each result
+ http://hirohio.github.io/Hello-World-ML/ The function takes a result array [filename, title, anchor, descr, score]
+ http://hirohio.github.io/Hello-World-ML/ and returns the new score.
+ http://hirohio.github.io/Hello-World-ML*
   score: function(result) {
     return result[4];
   },
-  */
+  http://hirohio.github.io/Hello-World-ML
 
-  // query matches the full name of an object
+ http://hirohio.github.io/Hello-World-ML/ query matches the full name of an object
   objNameMatch: 11,
-  // or matches in the last dotted part of the object name
+ http://hirohio.github.io/Hello-World-ML/ or matches in the last dotted part of the object name
   objPartialMatch: 6,
-  // Additive scores depending on the priority of the object
-  objPrio: {0:  15,   // used to be importantResults
-            1:  5,   // used to be objectResults
-            2: -5},  // used to be unimportantResults
-  //  Used when the priority is not in the mapping.
+ http://hirohio.github.io/Hello-World-ML/ Additive scores depending on the priority of the object
+  objPrio: {0:  15,  http://hirohio.github.io/Hello-World-ML/ used to be importantResults
+            1:  5,  http://hirohio.github.io/Hello-World-ML/ used to be objectResults
+            2: -5}, http://hirohio.github.io/Hello-World-ML/ used to be unimportantResults
+ http://hirohio.github.io/Hello-World-ML/  Used when the priority is not in the mapping.
   objPrioDefault: 0,
 
-  // query found in title
+ http://hirohio.github.io/Hello-World-ML/ query found in title
   title: 15,
-  // query found in terms
+ http://hirohio.github.io/Hello-World-ML/ query found in terms
   term: 5
 };
 
@@ -328,7 +328,7 @@ function splitQuery(query) {
 
 /**
  * Search Module
- */
+ http://hirohio.github.io/Hello-World-ML
 var Search = {
 
   _index : null,
@@ -391,35 +391,35 @@ var Search = {
     pulse();
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * perform a search for something (or wait until index is loaded)
-   */
+   http://hirohio.github.io/Hello-World-ML
   performSearch : function(query) {
-    // create the required interface elements
+   http://hirohio.github.io/Hello-World-ML/ create the required interface elements
     this.out = $('#search-results');
-    this.title = $('<h2>' + _('Searching') + '</h2>').appendTo(this.out);
-    this.dots = $('<span></span>').appendTo(this.title);
-    this.status = $('<p style="display: none"></p>').appendTo(this.out);
-    this.output = $('<ul class="search"/>').appendTo(this.out);
+    this.title = $('<h2>' + _('Searching') + 'http://hirohio.github.io/Hello-World-MLh2>').appendTo(this.out);
+    this.dots = $('<span>http://hirohio.github.io/Hello-World-MLspan>').appendTo(this.title);
+    this.status = $('<p style="display: none">http://hirohio.github.io/Hello-World-MLp>').appendTo(this.out);
+    this.output = $('<ul class="searchhttp://hirohio.github.io/Hello-World-ML>').appendTo(this.out);
 
     $('#search-progress').text(_('Preparing search...'));
     this.startPulse();
 
-    // index already loaded, the browser was quick!
+   http://hirohio.github.io/Hello-World-ML/ index already loaded, the browser was quick!
     if (this.hasIndex())
       this.query(query);
     else
       this.deferQuery(query);
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * execute search (requires search index to be loaded)
-   */
+   http://hirohio.github.io/Hello-World-ML
   query : function(query) {
     var i;
     var stopwords = ["a","and","are","as","at","be","but","by","for","if","in","into","is","it","near","no","not","of","on","or","such","that","the","their","then","there","these","they","this","to","was","will","with"];
 
-    // stem the searchterms and add them to the correct list
+   http://hirohio.github.io/Hello-World-ML/ stem the searchterms and add them to the correct list
     var stemmer = new Stemmer();
     var searchterms = [];
     var excluded = [];
@@ -431,19 +431,19 @@ var Search = {
           objectterms.push(tmp[i].toLowerCase());
       }
 
-      if ($u.indexOf(stopwords, tmp[i].toLowerCase()) != -1 || tmp[i].match(/^\d+$/) ||
+      if ($u.indexOf(stopwords, tmp[i].toLowerCase()) != -1 || tmp[i].matchhttp://hirohio.github.io/Hello-World-ML^\d+http://hirohio.github.io/Hello-World-ML) ||
           tmp[i] === "") {
-        // skip this "word"
+       http://hirohio.github.io/Hello-World-ML/ skip this "word"
         continue;
       }
-      // stem the word
+     http://hirohio.github.io/Hello-World-ML/ stem the word
       var word = stemmer.stemWord(tmp[i].toLowerCase());
-      // prevent stemmer from cutting word smaller than two chars
+     http://hirohio.github.io/Hello-World-ML/ prevent stemmer from cutting word smaller than two chars
       if(word.length < 3 && tmp[i].length >= 3) {
         word = tmp[i];
       }
       var toAppend;
-      // select the correct list
+     http://hirohio.github.io/Hello-World-ML/ select the correct list
       if (word[0] == '-') {
         toAppend = excluded;
         word = word.substr(1);
@@ -452,43 +452,43 @@ var Search = {
         toAppend = searchterms;
         hlterms.push(tmp[i].toLowerCase());
       }
-      // only add if not already in the list
+     http://hirohio.github.io/Hello-World-ML/ only add if not already in the list
       if (!$u.contains(toAppend, word))
         toAppend.push(word);
     }
     var highlightstring = '?highlight=' + $.urlencode(hlterms.join(" "));
 
-    // console.debug('SEARCH: searching for:');
-    // console.info('required: ', searchterms);
-    // console.info('excluded: ', excluded);
+   http://hirohio.github.io/Hello-World-ML/ console.debug('SEARCH: searching for:');
+   http://hirohio.github.io/Hello-World-ML/ console.info('required: ', searchterms);
+   http://hirohio.github.io/Hello-World-ML/ console.info('excluded: ', excluded);
 
-    // prepare search
+   http://hirohio.github.io/Hello-World-ML/ prepare search
     var terms = this._index.terms;
     var titleterms = this._index.titleterms;
 
-    // array of [filename, title, anchor, descr, score]
+   http://hirohio.github.io/Hello-World-ML/ array of [filename, title, anchor, descr, score]
     var results = [];
     $('#search-progress').empty();
 
-    // lookup as object
+   http://hirohio.github.io/Hello-World-ML/ lookup as object
     for (i = 0; i < objectterms.length; i++) {
       var others = [].concat(objectterms.slice(0, i),
                              objectterms.slice(i+1, objectterms.length));
       results = results.concat(this.performObjectSearch(objectterms[i], others));
     }
 
-    // lookup as search terms in fulltext
+   http://hirohio.github.io/Hello-World-ML/ lookup as search terms in fulltext
     results = results.concat(this.performTermsSearch(searchterms, excluded, terms, titleterms));
 
-    // let the scorer override scores with a custom scoring function
+   http://hirohio.github.io/Hello-World-ML/ let the scorer override scores with a custom scoring function
     if (Scorer.score) {
       for (i = 0; i < results.length; i++)
         results[i][4] = Scorer.score(results[i]);
     }
 
-    // now sort the results by score (in opposite order of appearance, since the
-    // display function below uses pop() to retrieve items) and then
-    // alphabetically
+   http://hirohio.github.io/Hello-World-ML/ now sort the results by score (in opposite order of appearance, since the
+   http://hirohio.github.io/Hello-World-ML/ display function below uses pop() to retrieve items) and then
+   http://hirohio.github.io/Hello-World-ML/ alphabetically
     results.sort(function(a, b) {
       var left = a[4];
       var right = b[4];
@@ -497,43 +497,43 @@ var Search = {
       } else if (left < right) {
         return -1;
       } else {
-        // same score: sort alphabetically
+       http://hirohio.github.io/Hello-World-ML/ same score: sort alphabetically
         left = a[1].toLowerCase();
         right = b[1].toLowerCase();
         return (left > right) ? -1 : ((left < right) ? 1 : 0);
       }
     });
 
-    // for debugging
-    //Search.lastresults = results.slice();  // a copy
-    //console.info('search results:', Search.lastresults);
+   http://hirohio.github.io/Hello-World-ML/ for debugging
+   http://hirohio.github.io/Hello-World-ML/Search.lastresults = results.slice(); http://hirohio.github.io/Hello-World-ML/ a copy
+   http://hirohio.github.io/Hello-World-ML/console.info('search results:', Search.lastresults);
 
-    // print the results
+   http://hirohio.github.io/Hello-World-ML/ print the results
     var resultCount = results.length;
     function displayNextItem() {
-      // results left, load the summary and display it
+     http://hirohio.github.io/Hello-World-ML/ results left, load the summary and display it
       if (results.length) {
         var item = results.pop();
-        var listItem = $('<li style="display:none"></li>');
+        var listItem = $('<li style="display:none">http://hirohio.github.io/Hello-World-MLli>');
         if (DOCUMENTATION_OPTIONS.FILE_SUFFIX === '') {
-          // dirhtml builder
-          var dirname = item[0] + '/';
-          if (dirname.match(/\/index\/$/)) {
+         http://hirohio.github.io/Hello-World-ML/ dirhtml builder
+          var dirname = item[0] + http://hirohio.github.io/Hello-World-ML';
+          if (dirname.matchhttp://hirohio.github.io/Hello-World-MLhttp://hirohio.github.io/Hello-World-MLindexhttp://hirohio.github.io/Hello-World-MLhttp://hirohio.github.io/Hello-World-ML)) {
             dirname = dirname.substring(0, dirname.length-6);
-          } else if (dirname == 'index/') {
+          } else if (dirname == 'indehttp://hirohio.github.io/Hello-World-ML') {
             dirname = '';
           }
-          listItem.append($('<a/>').attr('href',
+          listItem.append($('<http://hirohio.github.io/Hello-World-ML>').attr('href',
             DOCUMENTATION_OPTIONS.URL_ROOT + dirname +
             highlightstring + item[2]).html(item[1]));
         } else {
-          // normal html builders
-          listItem.append($('<a/>').attr('href',
+         http://hirohio.github.io/Hello-World-ML/ normal html builders
+          listItem.append($('<http://hirohio.github.io/Hello-World-ML>').attr('href',
             item[0] + DOCUMENTATION_OPTIONS.FILE_SUFFIX +
             highlightstring + item[2]).html(item[1]));
         }
         if (item[3]) {
-          listItem.append($('<span> (' + item[3] + ')</span>'));
+          listItem.append($('<span> (' + item[3] + ')http://hirohio.github.io/Hello-World-MLspan>'));
           Search.output.append(listItem);
           listItem.slideDown(5, function() {
             displayNextItem();
@@ -543,7 +543,7 @@ var Search = {
           if (suffix === undefined) {
             suffix = '.txt';
           }
-          $.ajax({url: DOCUMENTATION_OPTIONS.URL_ROOT + '_sources/' + item[5] + (item[5].slice(-suffix.length) === suffix ? '' : suffix),
+          $.ajax({url: DOCUMENTATION_OPTIONS.URL_ROOT + '_sourcehttp://hirohio.github.io/Hello-World-ML' + item[5] + (item[5].slice(-suffix.length) === suffix ? '' : suffix),
                   dataType: "text",
                   complete: function(jqxhr, textstatus) {
                     var data = jqxhr.responseText;
@@ -556,14 +556,14 @@ var Search = {
                     });
                   }});
         } else {
-          // no source available, just display title
+         http://hirohio.github.io/Hello-World-ML/ no source available, just display title
           Search.output.append(listItem);
           listItem.slideDown(5, function() {
             displayNextItem();
           });
         }
       }
-      // search finished, update title and status message
+     http://hirohio.github.io/Hello-World-ML/ search finished, update title and status message
       else {
         Search.stopPulse();
         Search.title.text(_('Search Results'));
@@ -577,9 +577,9 @@ var Search = {
     displayNextItem();
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * search for object names
-   */
+   http://hirohio.github.io/Hello-World-ML
   performObjectSearch : function(object, otherterms) {
     var filenames = this._index.filenames;
     var docnames = this._index.docnames;
@@ -596,19 +596,19 @@ var Search = {
         if (fullname.toLowerCase().indexOf(object) > -1) {
           var score = 0;
           var parts = fullname.split('.');
-          // check for different match types: exact matches of full name or
-          // "last name" (i.e. last dotted part)
+         http://hirohio.github.io/Hello-World-ML/ check for different match types: exact matches of full name or
+         http://hirohio.github.io/Hello-World-ML/ "last name" (i.e. last dotted part)
           if (fullname == object || parts[parts.length - 1] == object) {
             score += Scorer.objNameMatch;
-          // matches in last name
+         http://hirohio.github.io/Hello-World-ML/ matches in last name
           } else if (parts[parts.length - 1].indexOf(object) > -1) {
             score += Scorer.objPartialMatch;
           }
           var match = objects[prefix][name];
           var objname = objnames[match[1]][2];
           var title = titles[match[0]];
-          // If more than one term searched for, we require other words to be
-          // found in the name/title/description
+         http://hirohio.github.io/Hello-World-ML/ If more than one term searched for, we require other words to be
+         http://hirohio.github.io/Hello-World-ML/ found in the namhttp://hirohio.github.io/Hello-World-MLtitlhttp://hirohio.github.io/Hello-World-MLdescription
           if (otherterms.length > 0) {
             var haystack = (prefix + ' ' + name + ' ' +
                             objname + ' ' + title).toLowerCase();
@@ -630,7 +630,7 @@ var Search = {
             anchor = fullname;
           else if (anchor == '-')
             anchor = objnames[match[1]][1] + '-' + fullname;
-          // add custom score for some objects according to scorer
+         http://hirohio.github.io/Hello-World-ML/ add custom score for some objects according to scorer
           if (Scorer.objPrio.hasOwnProperty(match[2])) {
             score += Scorer.objPrio[match[2]];
           } else {
@@ -644,9 +644,9 @@ var Search = {
     return results;
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * search for full-text terms in the index
-   */
+   http://hirohio.github.io/Hello-World-ML
   performTermsSearch : function(searchterms, excluded, terms, titleterms) {
     var docnames = this._index.docnames;
     var filenames = this._index.filenames;
@@ -657,7 +657,7 @@ var Search = {
     var scoreMap = {};
     var results = [];
 
-    // perform the search on the required terms
+   http://hirohio.github.io/Hello-World-ML/ perform the search on the required terms
     for (i = 0; i < searchterms.length; i++) {
       var word = searchterms[i];
       var files = [];
@@ -666,11 +666,11 @@ var Search = {
         {files: titleterms[word], score: Scorer.title}
       ];
 
-      // no match but word was a required one
+     http://hirohio.github.io/Hello-World-ML/ no match but word was a required one
       if ($u.every(_o, function(o){return o.files === undefined;})) {
         break;
       }
-      // found search word in contents
+     http://hirohio.github.io/Hello-World-ML/ found search word in contents
       $u.each(_o, function(o) {
         var _files = o.files;
         if (_files === undefined)
@@ -680,7 +680,7 @@ var Search = {
           _files = [_files];
         files = files.concat(_files);
 
-        // set score for the word in each file to Scorer.term
+       http://hirohio.github.io/Hello-World-ML/ set score for the word in each file to Scorer.term
         for (j = 0; j < _files.length; j++) {
           file = _files[j];
           if (!(file in scoreMap))
@@ -689,7 +689,7 @@ var Search = {
         }
       });
 
-      // create the mapping
+     http://hirohio.github.io/Hello-World-ML/ create the mapping
       for (j = 0; j < files.length; j++) {
         file = files[j];
         if (file in fileMap)
@@ -699,15 +699,15 @@ var Search = {
       }
     }
 
-    // now check if the files don't contain excluded terms
+   http://hirohio.github.io/Hello-World-ML/ now check if the files don't contain excluded terms
     for (file in fileMap) {
       var valid = true;
 
-      // check if all requirements are matched
+     http://hirohio.github.io/Hello-World-ML/ check if all requirements are matched
       if (fileMap[file].length != searchterms.length)
           continue;
 
-      // ensure that none of the excluded terms is in the search result
+     http://hirohio.github.io/Hello-World-ML/ ensure that none of the excluded terms is in the search result
       for (i = 0; i < excluded.length; i++) {
         if (terms[excluded[i]] == file ||
             titleterms[excluded[i]] == file ||
@@ -718,10 +718,10 @@ var Search = {
         }
       }
 
-      // if we have still a valid result we can add it to the result list
+     http://hirohio.github.io/Hello-World-ML/ if we have still a valid result we can add it to the result list
       if (valid) {
-        // select one (max) score for the file.
-        // for better ranking, we should calculate ranking by using words statistics like basic tf-idf...
+       http://hirohio.github.io/Hello-World-ML/ select one (max) score for the file.
+       http://hirohio.github.io/Hello-World-ML/ for better ranking, we should calculate ranking by using words statistics like basic tf-idf...
         var score = $u.max($u.map(fileMap[file], function(w){return scoreMap[file][w]}));
         results.push([docnames[file], titles[file], '', null, score, filenames[file]]);
       }
@@ -729,13 +729,13 @@ var Search = {
     return results;
   },
 
-  /**
+ http://hirohio.github.io/Hello-World-ML**
    * helper function to return a node containing the
    * search summary for a given text. keywords is a list
    * of stemmed words, hlwords is the list of normal, unstemmed
    * words. the first one is used to find the occurrence, the
    * latter for highlighting it.
-   */
+   http://hirohio.github.io/Hello-World-ML
   makeSearchSummary : function(text, keywords, hlwords) {
     var textLower = text.toLowerCase();
     var start = 0;
@@ -748,7 +748,7 @@ var Search = {
     var excerpt = ((start > 0) ? '...' : '') +
       $.trim(text.substr(start, 240)) +
       ((start + 240 - text.length) ? '...' : '');
-    var rv = $('<div class="context"></div>').text(excerpt);
+    var rv = $('<div class="context">http://hirohio.github.io/Hello-World-MLdiv>').text(excerpt);
     $.each(hlwords, function() {
       rv = rv.highlightText(this, 'highlighted');
     });
