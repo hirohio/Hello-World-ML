@@ -43,20 +43,62 @@
 <dt id="PreprocessingExecuter.Preprocessing">
 <em class="property">class </em><code class="descclassname">PreprocessingExecuter.</code><code class="descname">Preprocessing</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="headerlink" href="#PreprocessingExecuter.Preprocessing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Preprocessing Class.</p>
 <dl class="method">
 <dt id="PreprocessingExecuter.Preprocessing.complement_with_mean">
 <code class="descname">complement_with_mean</code><span class="sig-paren">(</span><em>column</em><span class="sig-paren">)</span><a class="headerlink" href="#PreprocessingExecuter.Preprocessing.complement_with_mean" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Complete ‘NaN’ data with mean.</p>
+<p>This method completes ‘NaN’ data with mean.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> – column name you want to fill.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dataframe which is filled with mean.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Dataframe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="PreprocessingExecuter.Preprocessing.complement_with_median">
 <code class="descname">complement_with_median</code><span class="sig-paren">(</span><em>column</em><span class="sig-paren">)</span><a class="headerlink" href="#PreprocessingExecuter.Preprocessing.complement_with_median" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Complete ‘NaN’ data with median.</p>
+<p>This method completes ‘NaN’ data with median.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> – column name you want to fill.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dataframe which is filled with median.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Dataframe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="PreprocessingExecuter.Preprocessing.complement_with_mostfrequency">
 <code class="descname">complement_with_mostfrequency</code><span class="sig-paren">(</span><em>column</em><span class="sig-paren">)</span><a class="headerlink" href="#PreprocessingExecuter.Preprocessing.complement_with_mostfrequency" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Complete ‘NaN’ data with most frequency value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> – column name you want to fill.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dataframe which is filled with most frequency value.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Dataframe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="PreprocessingExecuter.Preprocessing.convert_columns_to_boolean">
@@ -80,8 +122,24 @@
 
 <dl class="method">
 <dt id="PreprocessingExecuter.Preprocessing.convert_time_to_weekdays">
-<code class="descname">convert_time_to_weekdays</code><span class="sig-paren">(</span><em>column_name</em><span class="sig-paren">)</span><a class="headerlink" href="#PreprocessingExecuter.Preprocessing.convert_time_to_weekdays" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">convert_time_to_weekdays</code><span class="sig-paren">(</span><em>column</em><span class="sig-paren">)</span><a class="headerlink" href="#PreprocessingExecuter.Preprocessing.convert_time_to_weekdays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert time to weekdays.
+This method covnerts time to weekdays(0,1,2,3,4,5,6,7).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> – column of time data.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dataframe with converted time to weekdays value.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Dataframe</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>original data : [‘2017-11-07 09:30:38’]</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="PreprocessingExecuter.Preprocessing.delete_outlier">
@@ -90,13 +148,37 @@
 
 <dl class="method">
 <dt id="PreprocessingExecuter.Preprocessing.drop">
-<code class="descname">drop</code><span class="sig-paren">(</span><em>column_name</em><span class="sig-paren">)</span><a class="headerlink" href="#PreprocessingExecuter.Preprocessing.drop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">drop</code><span class="sig-paren">(</span><em>column</em><span class="sig-paren">)</span><a class="headerlink" href="#PreprocessingExecuter.Preprocessing.drop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop column</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>column</strong> – column you want to drop</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dataframe which is dropped column.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Dataframe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="PreprocessingExecuter.Preprocessing.drop_nan">
 <code class="descname">drop_nan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PreprocessingExecuter.Preprocessing.drop_nan" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Drop NaN</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Dataframe which is removed all NaN rows.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Dataframe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="PreprocessingExecuter.Preprocessing.fill_in_NaN">
