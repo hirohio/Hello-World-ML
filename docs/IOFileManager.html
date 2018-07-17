@@ -37,30 +37,86 @@
 <dt id="IOFileManager.IOFileManager">
 <em class="property">class </em><code class="descclassname">IOFileManager.</code><code class="descname">IOFileManager</code><a class="headerlink" href="#IOFileManager.IOFileManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manager of input/output files.
+This class requires user input to input/output files.</p>
 <dl class="method">
 <dt id="IOFileManager.IOFileManager.export_output">
 <code class="descname">export_output</code><span class="sig-paren">(</span><em>original_test_df</em>, <em>output_df</em>, <em>predicted_column</em><span class="sig-paren">)</span><a class="headerlink" href="#IOFileManager.IOFileManager.export_output" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>[Warning!!]This method should be refactoerd.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="IOFileManager.IOFileManager.export_to_csv">
 <code class="descname">export_to_csv</code><span class="sig-paren">(</span><em>df</em><span class="sig-paren">)</span><a class="headerlink" href="#IOFileManager.IOFileManager.export_to_csv" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method exports csv file.
+Arges:</p>
+<blockquote>
+<div>df: File name of YAML you want to import.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True or False.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="IOFileManager.IOFileManager.import_from_csv">
 <code class="descname">import_from_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#IOFileManager.IOFileManager.import_from_csv" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method exports dataframe file as csv.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Dataframe which read csv file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Dataframe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="IOFileManager.IOFileManager.initial_import_from_csv">
 <code class="descname">initial_import_from_csv</code><span class="sig-paren">(</span><em>file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#IOFileManager.IOFileManager.initial_import_from_csv" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method imports csv file as dataframe.
+Arges:</p>
+<blockquote>
+<div>file_name: File name of csv you want to import</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Dataframe which read csv file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Dataframe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="IOFileManager.IOFileManager.read_from_yaml">
 <code class="descname">read_from_yaml</code><span class="sig-paren">(</span><em>file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#IOFileManager.IOFileManager.read_from_yaml" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method read YAML file.
+Arges:</p>
+<blockquote>
+<div>file_name: File name of YAML you want to import</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Dataframe which read csv file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Dataframe</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
