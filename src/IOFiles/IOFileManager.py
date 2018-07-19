@@ -46,6 +46,7 @@ class IOFileManager:
     #for command line arguments
     def initial_import_from_csv(self, file_name):
         """This method imports csv file as dataframe.
+
         Arges:
             file_name: File name of csv you want to import
 
@@ -64,6 +65,7 @@ class IOFileManager:
 
     def read_from_yaml(self, file_name):
         """This method read YAML file.
+
         Arges:
             file_name: File name of YAML you want to import
 
@@ -81,6 +83,7 @@ class IOFileManager:
 
     def export_to_csv(self,df):
         """This method exports csv file.
+
         Arges:
             df: File name of YAML you want to import.
 

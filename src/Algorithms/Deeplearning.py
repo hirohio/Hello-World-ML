@@ -10,6 +10,19 @@ import Algorithms.Utilities.DataFrameChecker as dfc
 import PrintHelpers.PrintHelper as phelper
 
 class DeepLearning:
+    """RDeepLearning Class.
+
+    """
+
+    @property
+    def df(self):
+        """Dataframe: Original dataframe to used for learning."""
+        return self._df
+
+    @property
+    def model(self):
+        """MLPClassifier: MLPClassifier(DeepLearning) Model which has learned original data."""
+        return self._learned_model
 
     def __init__(self,df):
         self._df = df

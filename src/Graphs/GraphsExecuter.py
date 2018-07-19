@@ -10,15 +10,18 @@ Graph Class is a class for graphss.
 class Graphs:
 
     def __init__(self,df):
+        """Constracter
+
+        Args:
+            df: dataframe to draw graphs
+        """
         self.df = df
-        """
-        Constracter ``arg1 + arg2``          
-        :param df: dataframe to draw graphs
-        """
+
     def hist_plot(self, column):
-        """
-        Draw histogram.
-        :param column: column in dataframe to draw graphs
+        """Draw histogram.
+
+        Args:
+            column: column in dataframe to draw graphs
         """
         try:
             sns.distplot(self.df[column], label = column)
@@ -32,10 +35,18 @@ class Graphs:
             print("Unexpected Exception")
             traceback.print_exc()
             sys.exit()
+
     def box_plot(self):
+        """Draw box plot.
+
+        """
         self.df.plot(kind='box',subplots=True)
         plt.show()
+
     def count_plot(self,column):
+        """Draw count plot
+
+        """
         try:
             sns.countplot(x=column, data=self.df, label=column)
             plt.show()
@@ -46,6 +57,7 @@ class Graphs:
             print("Unexpected Exception")
             traceback.print_exc()
             sys.exit()
+
     def point_plot(self,column_x,column_y):
         try:
             sns.set(style="whitegrid")
@@ -59,6 +71,7 @@ class Graphs:
             print("Unexpected Exception")
             traceback.print_exc()
             sys.exit()
+
     def scatter_plot(self, column_x, column_y):
         try:
             plt.scatter(self.df[column_x], self.df[column_y])
@@ -71,6 +84,7 @@ class Graphs:
             print("Unexpected Exception")
             traceback.print_exc()
             sys.exit()
+
     def pair_plot(self):
         try:
             sns.pairplot(self.df)

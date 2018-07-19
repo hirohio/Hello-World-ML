@@ -15,8 +15,7 @@ class IOFile:
 
     # Sigleton Class
     def __new__(cls):
-        """
-        This class is a singleton class.
+        """This class is a singleton class.
         This method is defined to generates only one instance.
         """
         with cls._lock:
@@ -25,8 +24,7 @@ class IOFile:
         return cls._instance
 
     def export_to_csv(self,file_name,output_df):
-        """
-        This method export dataframe file as csv.
+        """This method export dataframe file as csv.
 
         Args:
             df: Dataframe to execute Machine Learnng.
@@ -40,8 +38,7 @@ class IOFile:
         return True
 
     def import_from_csv(self,file_name):
-        """
-        This method imports csv file as dataframe.
+        """This method imports csv file as dataframe.
         Then, this method removes 'Unnamed: 0' from dataframe automatically.
 
         Args:
@@ -56,8 +53,7 @@ class IOFile:
         return df
 
     def read_from_yaml(self,file_name):
-        """
-        This method read yaml file.
+        """This method read yaml file.
 
         Args:
             file_name: File name of YAML file you want to import.

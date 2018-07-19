@@ -13,6 +13,17 @@ class RandomForest:
     """RandomFroest Class.
 
     """
+
+    @property
+    def df(self):
+        """Dataframe: Original dataframe to used for learning."""
+        return self._df
+
+    @property
+    def model(self):
+        """RandomForestClassifier: RanfromForest Model which has learned original data."""
+        return self._learned_model
+
     def __init__(self,df):
         """
         Constracter.

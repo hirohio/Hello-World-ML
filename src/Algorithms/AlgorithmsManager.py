@@ -21,6 +21,11 @@ class AlgorithmsManager:
 
     """
 
+    @property
+    def df(self):
+        """Dataframe: Original dataframe to used for learning."""
+        return self._df
+
     def __init__(self,df):
         """
         This method is a constracter.
@@ -30,10 +35,6 @@ class AlgorithmsManager:
 
         """
         self._df = df
-
-    @property
-    def df(self):
-        return self._df
 
     def accept_command(self):
         """
@@ -79,7 +80,7 @@ class AlgorithmsManager:
         print("Following data is referd for training")
         self._df.info()
 
-        rf = randforest.RandomForest(self._df)
+        self._rf = randforest.RandomForest(self._df)
 
         while True:
             prediction_column = input("Input column you want to predict: ")
@@ -90,7 +91,7 @@ class AlgorithmsManager:
         io_file = iof.IOFileManager()
         params = io_file.read_from_yaml(_RANDOM_FOREST_PARAMETER_PATH)
 
-        rf.learn(prediction_column,params)
+        self._rf.learn(prediction_column,params)
 
         while True:
             ans = input("Do you predict test csv file? ( y / n ) :")
@@ -104,7 +105,7 @@ class AlgorithmsManager:
             else:
                 continue
 
-        output_df = rf.predict(test_df)
+        output_df = self._rf.predict(test_df)
         if not output_df is None:
             print("Exporting File\n")
             io_file.export_output(test_df,output_df,prediction_column)
@@ -124,7 +125,7 @@ class AlgorithmsManager:
 
         print("Following data is referd for training")
         self._df.info()
-        dl = deeplearning.DeepLearning(self._df)
+        self._dl = deeplearning.DeepLearning(self._df)
 
         while True:
             prediction_column = input("Input column you want to predict: ")
@@ -135,7 +136,7 @@ class AlgorithmsManager:
         io_file = iof.IOFileManager()
         params = io_file.read_from_yaml(_DEEP_LEARNING_PARAMETER_PATH)
 
-        if not dl.learn(prediction_column,params):
+        if not slef._dl.learn(prediction_column,params):
             print('Deep Learning was failed')
             return
 
@@ -151,14 +152,14 @@ class AlgorithmsManager:
             else:
                 continue
 
-        output_df = dl.predict(test_df)
+        output_df = self._dl.predict(test_df)
 
         print("Exporting File\n")
         io_file.export_output(test_df,output_df,prediction_column)
 
     def _invoke_voting_classfier(self):
-        """
-        This method invvoke voting classfier.
+        """This method makes voting classfier learn data.
+
         """
         print("Following data is referd for training")
         self._df.info()

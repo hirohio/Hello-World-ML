@@ -14,7 +14,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import Imputer
 
 class Preprocessing:
-    """Preprocessing
+    """Preprocessing Class.
 
     """
 
@@ -23,6 +23,16 @@ class Preprocessing:
         self.datetime_kinds = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond']
 
     def complement_with_median(self,column):
+        """Complete 'NaN' data with median.
+
+        This method completes 'NaN' data with median.
+
+        Args:
+            column (str): column name you want to fill.
+
+        Returns:
+            Dataframe: dataframe which is filled with median.
+        """
         #median = self.df[column].dropna().median()
         #self.df[column] = self.df[column].fillna(median)
         #print("This method is not still tested")
@@ -32,65 +42,151 @@ class Preprocessing:
         return self.df
 
     def complement_with_mean(self,column):
+        """Complete 'NaN' data with mean.
+
+        This method completes 'NaN' data with mean.
+
+        Args:
+            column (str): column name you want to fill.
+
+        Returns:
+            Dataframe: dataframe which is filled with mean.
+        """
         imr = Imputer(missing_values='NaN', strategy='mean', axis=0)
         imr = imr.fit(self.df[[column]])
         self.df[column] = imr.transform(self.df[[column]]).ravel()
         return self.df
 
     def complement_with_mostfrequency(self,column):
+        """Complete 'NaN' data with most frequency value.
+
+        Args:
+            column (str): column name you want to fill.
+
+        Returns:
+            Dataframe: dataframe which is filled with most frequency value.
+        """
         imr = Imputer(missing_values='NaN', strategy='most_frequent', axis=0)
         imr = imr.fit(self.df[[column]])
         self.df[column] = imr.transform(self.df[[column]]).ravel()
         return self.df
 
-    def drop(self, column_name):
+    def drop(self, column):
+        """Drop column
+
+        Args:
+            column(str): column you want to drop
+
+        Returns:
+            Dataframe: Dataframe which is dropped column.
+        """
         try:
-            self.df = self.df.drop(column_name, axis=1)
-            return self.df
+            self.df = self.df.drop(column, axis=1)
         except:
             print("Unexpected Exception")
             traceback.print_exc()
             sys.exit()
+        return self.df
 
     def drop_nan(self):
+        """Drop all 'NaN' rows.
+
+        Returns:
+            Dataframe: Dataframe which is removed all NaN rows.
+        """
         self.df = self.df.dropna(axis=0, how='any')
         return self.df
 
     # xxxx-xx-xx xx:xx:xx to 0~7
-    def convert_time_to_weekdays(self,column_name):
+    def convert_time_to_weekdays(self,column):
+        """Convert time to weekdays.
+        This method covnerts time to weekdays(0,1,2,3,4,5,6).
+
+        Args:
+            column(str): column you want to convert.
+        Returns:
+            Dataframe: dataframe with converted time to weekdays value(0: Monday - 6: Sunday).
+
+        Examples:
+            original data : ['2017-11-07 09:30:38']
+
+
+        """
         try:
-            self.df[column_name + '_weekday'] = pd.to_datetime(self.df[column_name]).dt.weekday
+            self.df[column + '_weekday'] = pd.to_datetime(self.df[column]).dt.weekday
             self.df.info()
-            return self.df
         except:
             print("Unexpected Exception")
             traceback.print_exc()
             sys.exit()
+        return self.df
 
     # xxxx-xx-xx xx:xx:xx to 0~24
-    def convert_time_to_datetime(self,column_name,time_name):
-        if not time_name in self.datetime_kinds :
+    def convert_time_to_datetime(self,column,time_kind):
+        """Convert time to date time.
+
+        Args:
+            column (str): column you want to convert.
+
+        Returns:
+            Dataframe: dataframe with converted time to time.
+
+        Examples:
+            original data : ['2017-11-07 09:30:38']
+
+            year: (ex),[2017]
+            month:(ex),[11]
+            day: (ex),[7]
+            hour: (ex),[9]
+            minute: (ex),[30]
+            second; (ex),[38]
+            microsecond (ex),[0]
+        """
+        if not time_kind in self.datetime_kinds :
             raise(NotSupportedError)
 
-        new_column_name = column_name + '_' + time_name
-        exec('self.df[new_column_name] = pd.to_datetime(self.df[column_name]).dt.' + time_name)
+        new_column_name = column + '_' + time_kind
+        exec('self.df[new_column_name] = pd.to_datetime(self.df[column_name]).dt.' + time_kind)
         self.df.info()
         return self.df
 
-    def fill_in_NaN(self,column_name,value_name):
-        self.df[column_name] = self.df[column_name].fillna(value_name)
+    def fill_in_NaN(self,column,value):
+        """Fill in 'NaN' values in column with value.
+
+        Args:
+            column (str): column name.
+            value :value you want to fill in NaN with.
+
+        Returns:
+            Dataframe: dataframe.
+
+        """
+        self.df[column] = self.df[column].fillna(value)
         return self.df
 
     # It is uede for embarked to Int {S:0 C:1 Q:2}
-    def convert_object_to_int(self,column_name):
-        print(self.df[column_name].value_counts())
+    def convert_object_to_int(self,column):
+        """Convert string(object) to integer in column.
+
+        Args:
+            column (str): column name.
+
+        Returns:
+            Dataframe: dataframe with converted column.
+
+        Examples:
+            S:0
+            C:1
+            Q:2
+        """
+        print(self.df[column].value_counts())
 
         coi_dict = {}
-        u = self.df[column_name].unique()
+        u = self.df[column].unique()
         for i,j in enumerate(u):
             print("convert " + j + ":" + str(i))
             coi_dict[j] = i
-        self.df["converted_" + column_name] = self.df[column_name].map(coi_dict).astype(int)
+        self.df["converted_" + column] = self.df[column].map(coi_dict).astype(int)
 
         return self.df
 
