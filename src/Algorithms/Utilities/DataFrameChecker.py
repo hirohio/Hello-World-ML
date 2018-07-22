@@ -25,3 +25,7 @@ class DataFrameChecker:
             return True
         else:
             return False
+
+    @classmethod
+    def is_num(s):
+        return s.replace(',', '').replace('.', '').replace('-', '').isnumeric()

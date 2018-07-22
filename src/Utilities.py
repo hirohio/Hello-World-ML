@@ -43,6 +43,10 @@ def main():
         print("Input file is "+ argvs[1])
         path = argvs[1]
 
+    # Initialzie Properties.
+    _algorithmsmanager = None
+
+
     while True:
         try:
             io_file = iof.IOFileManager()
@@ -67,8 +71,9 @@ def main():
             graphsManager = grh.GraphsManager(df)
             graphsManager.accept_command()
         elif ans == "a":
-            algorithmsmanager = alg.AlgorithmsManager(df)
-            algorithmsmanager.accept_command()
+            if _algorithmsmanager is None:
+                _algorithmsmanager = alg.AlgorithmsManager(df)
+            _algorithmsmanager.accept_command()
         elif ans == "p":
             prepManager = pp.PreprocessingManager(df)
             df = prepManager.accept_command()

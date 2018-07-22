@@ -62,4 +62,7 @@ class IOFile:
             list data.
         """
         print ('file path is ' + file_name)
-        return yaml.load(open(file_name, "r+"))
+
+        with open(file_name, "r+") as file:
+            parameters = yaml.load(file)
+        return parameters

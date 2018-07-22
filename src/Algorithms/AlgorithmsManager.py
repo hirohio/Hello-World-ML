@@ -35,6 +35,10 @@ class AlgorithmsManager:
 
         """
         self._df = df
+        self._algorithms = []
+        self._rf = None
+        self._dl = None
+        self._lr = None
 
     def accept_command(self):
         """
@@ -136,7 +140,7 @@ class AlgorithmsManager:
         io_file = iof.IOFileManager()
         params = io_file.read_from_yaml(_DEEP_LEARNING_PARAMETER_PATH)
 
-        if not slef._dl.learn(prediction_column,params):
+        if not self._dl.learn(prediction_column,params):
             print('Deep Learning was failed')
             return
 
@@ -163,15 +167,38 @@ class AlgorithmsManager:
         """
         print("Following data is referd for training")
         self._df.info()
-        vc = votingclassfier.VotingClassifier(self._df)
+
+        self._generate_algorithms()
+        vc = votingclassfier.VotingClass(self._df,self._algorithms)
 
         while True:
             prediction_column = input("Input column you want to predict: ")
             if(prediction_column in self._df.columns):
                 break
+        vc.learn(prediction_column,None)
 
-        print("Test(Target) file is required.")
-        io_file = iof.IOFileManager()
-        test_df = io_file.import_from_csv()
+        while True:
+            ans = input("Do you predict test csv file? ( y / n ) :")
+            if 'y' ==  ans:
+                print("Test file is required.")
+                io_file = iof.IOFileManager()
+                test_df = io_file.import_from_csv()
+                break
+            elif 'n' == ans:
+                return
+            else:
+                continue
 
-        vc.learn(prediction_column)
+    def _generate_algorithms(self):
+        """Generate Algoristhms List.
+
+        """
+        if self._rf is not None:
+            print('RandomFroest model is existed')
+            self._algorithms.append(('rf',self._rf.model))
+        if self._lr is not None:
+            print('Linear Recursive model is existed')
+            self._algorithms.append(('lr',self._lf.model))
+        if self._dl is not None:
+            print('Deep Learning model is existed')
+            self._algorithms.append(('dl',self._dl.model))

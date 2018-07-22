@@ -25,6 +25,7 @@ class DeepLearning:
         return self._learned_model
 
     def __init__(self,df):
+        phelper.PrintHelper.print_title(self.__class__.__name__)
         self._df = df
 
     def learn(self,column,params):

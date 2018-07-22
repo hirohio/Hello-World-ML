@@ -32,6 +32,7 @@ class RandomForest:
             df (Dataframe): Dataframe to learn.
         """
         self._df = df
+        phelper.PrintHelper.print_title(self.__class__.__name__)
 
     def learn(self,column,params):
         """Randomforest learns data in dataframe.
@@ -61,16 +62,15 @@ class RandomForest:
         (X_train, X_test, y_train, y_test) = train_test_split(X, y, test_size=0.3, random_state=0)
 
         model = RandomForestClassifier()
-        phelper.PrintHelper.print_title('Default Params')
 
-        print(model.get_params())
-
-        phelper.PrintHelper.print_title('Params from a file')
-        print(params)
-
-        #scores = ['accuracy', 'precision', 'recall']
         if params == None:
-            params = model.get_params()
+            phelper.PrintHelper.print_title('Default Params')
+            params = self._convert_params_to_list(model.get_params())
+            print(params)
+        else:
+            phelper.PrintHelper.print_title('Params from a file')
+            #params = self._convert_params_to_list(params)
+            print(params)
 
         print('...Doing Grid Search...')
         cv = GridSearchCV(model, params, cv = 10, scoring = 'neg_mean_squared_error', n_jobs=1, refit = True)
@@ -118,3 +118,21 @@ class RandomForest:
 
         phelper.PrintHelper.print_error('columns are not matched !!')
         return None
+
+    def _convert_params_to_list(self,params):
+        """Convert parameters for estimator to list.
+        GridSearch can not receive object but list.
+        This method convert parameters to list.
+
+        Args:
+            params (map): parameters for estimater.
+
+        Returns:
+            list: list of parameters
+        """
+        result = {}
+        for i in params:
+            result_list = []
+            result_list.append(params[i])
+            result[i] = result_list
+        return result
