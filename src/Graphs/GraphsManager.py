@@ -13,6 +13,7 @@ _GRAPHS_MANAGER_COMMANDS_ = [
     '(s):           Scatter Plot.',
     '(b):           Box Plot.',
     '(pair):        Pair Plot.',
+    '(heat):        Heat Map.',
     '(cancel):      Cancel.'
 ]
 
@@ -42,6 +43,9 @@ class GraphsManager:
                 break
             elif ans == "pair":
                 self._invoke_pair_plot()
+                break
+            elif ans == "heat":
+                self._inboke_heatmap()
                 break
             elif ans == "cancel":
                 break
@@ -87,6 +91,7 @@ class GraphsManager:
                 break
 
         self.graphs.point_plot(column_x,column_y)
+
     def _invoke_sctter_plot(self):
         while True:
             column_x = input("Please input column X name: ")
@@ -110,3 +115,6 @@ class GraphsManager:
 
     def _invoke_box_plot(self):
         self.graphs.box_plot()
+
+    def _inboke_heatmap(self):
+        self.graphs.heat_map()

@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
 import sys as sys
 import traceback
@@ -88,6 +89,31 @@ class Graphs:
     def pair_plot(self):
         try:
             sns.pairplot(self.df)
+            plt.show()
+        except:
+            print("Unexpected Exception")
+            traceback.print_exc()
+            sys.exit()
+
+    def heat_map(self):
+        try:
+            print("...calculating correof...")
+            cm = np.corrcoef(self.df.T)
+            print(cm)
+            print("...creating heatmap...")
+
+            hm = sns.heatmap(cm,
+                cbar = True,
+                annot = True,
+                square = True,
+                annot_kws={'size':15},
+                fmt = '.2f',
+                yticklabels = self.df.columns,
+                xticklabels = self.df.columns
+                )
+            print("...tight layout...")
+            plt.tight_layout()
+            print("...showing graphs...")
             plt.show()
         except:
             print("Unexpected Exception")
