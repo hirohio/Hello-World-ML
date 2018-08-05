@@ -28,7 +28,7 @@ class Graphs:
             sns.distplot(self.df[column], label = column)
             plt.show()
             #self.df.plot(kind='hist',subplots=True)
-            plt.show()
+            #plt.show()
         except TypeError:
             print("Unsupported Operand Type. You have to convert following vlaues to integer.\n")
             print(self.df[column].value_counts())

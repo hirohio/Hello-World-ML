@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import Imputer
+from sklearn.preprocessing import StandardScaler
 
 class Preprocessing:
     """Preprocessing Class.
@@ -218,6 +219,21 @@ class Preprocessing:
 
         deleted_df = self.df[(outlier_min < self.df[column_name]) & (self.df[column_name] < outlier_max)]
         return deleted_df
+
+    def convert_standard_scaler(self):
+        """Convert dataframe to standard scale data
+
+        Returns:
+            Dataframe: dataframe with converted column.
+
+        Examples:
+
+        Returns:
+            Dataframe: standaard scaled dataframe
+        """
+
+        sc = StandardScaler()
+        return sc.fit_transform(self.df)
 
 class NotSupportedError(Exception):
     pass
