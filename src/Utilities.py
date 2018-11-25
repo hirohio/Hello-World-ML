@@ -7,7 +7,7 @@ import Graphs.GraphsManager as grh
 import Preprocessing.PreprocessingManager as pp
 import Algorithms.AlgorithmsManager as alg
 import IOFiles.IOFileManager as iof
-import PrintHelpers.PrintHelper as phelper
+import Helpers.PrintHelpers.PrintHelper as phelper
 
 _MAIN_MENU_COMMANDS_ = [
         "(imf):     Import csv file.",
@@ -73,6 +73,8 @@ def main():
         elif ans == "a":
             if _algorithmsmanager is None:
                 _algorithmsmanager = alg.AlgorithmsManager(df)
+            else:
+                _algorithmsmanager._df = df
             _algorithmsmanager.accept_command()
         elif ans == "p":
             prepManager = pp.PreprocessingManager(df)

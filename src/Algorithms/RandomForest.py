@@ -6,8 +6,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 # Internal Libraries
-import Algorithms.Utilities.DataFrameChecker as dfc
-import PrintHelpers.PrintHelper as phelper
+import Helpers.DataFrameHelpers.DataFrameChecker as dfc
+import Helpers.PrintHelpers.PrintHelper as phelper
 
 class RandomForest:
     """RandomFroest Class.

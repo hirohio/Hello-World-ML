@@ -72,7 +72,7 @@ class Preprocessing:
         self.df[column] = imr.transform(self.df[[column]]).ravel()
         return self.df
 
-    def drop(self, column):
+    def drop_colum(self, column):
         """Drop column
 
         Args:
@@ -96,6 +96,23 @@ class Preprocessing:
             Dataframe: Dataframe which is removed all NaN rows.
         """
         self.df = self.df.dropna(axis=0, how='any')
+        return self.df
+
+    def drop_rows(self,column,term,threshold):
+        """Drop rows
+
+        Args:
+            ans(str): term of rows which you want to drop
+
+        Returns:
+            Dataframe: Dataframe which is dropped rows.
+        """
+        if term == '=':
+            self.df = self.df[self.df[column] == threshold]
+        elif term == '<':
+            self.df = self.df[self.df[column] < threshold]
+        elif term == '>':
+            self.df = self.df[self.df[column] > threshold]
         return self.df
 
     # xxxx-xx-xx xx:xx:xx to 0~7

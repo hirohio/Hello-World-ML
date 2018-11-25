@@ -7,8 +7,8 @@ from sklearn.ensemble import VotingClassifier
 from sklearn.metrics import accuracy_score
 
 # Internal Modules
-import PrintHelpers.PrintHelper as phelper
-import Algorithms.Utilities.DataframeConverter as dfc
+import Helpers.PrintHelpers.PrintHelper as phelper
+import Helpers.DataFrameHelpers.DataframeConverter as dfc
 
 class VotingClass:
     """Voting Class

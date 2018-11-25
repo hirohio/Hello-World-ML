@@ -1,9 +1,9 @@
 import Algorithms.RandomForest as randforest
 import Algorithms.Deeplearning as deeplearning
 import Algorithms.VotingClassifier as votingclassfier
-import Algorithms.Utilities.DataFrameChecker as dfc
+import Helpers.DataFrameHelpers.DataFrameChecker as dfc
 import IOFiles.IOFileManager as iof
-import PrintHelpers.PrintHelper as phelper
+import Helpers.PrintHelpers.PrintHelper as phelper
 
 _RANDOM_FOREST_PARAMETER_PATH = "/Algorithms/Data/RandomForestParameters_test.yml"
 _DEEP_LEARNING_PARAMETER_PATH = "/Algorithms/Data/DeepLearningParameters_test.yml"
@@ -72,7 +72,7 @@ class AlgorithmsManager:
 
     def _invoke_random_forest(self):
         """
-        This method invoke random forest.
+        This method invokes random forest.
         It accepts some input for random forest from user.
         """
 

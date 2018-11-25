@@ -2,13 +2,16 @@
 import pandas as pd
 import sys as sys
 import traceback
+import re
 
 # Internal Modules
 import Preprocessing.PreprocessingExecuter as prep
-import PrintHelpers.PrintHelper as phelper
+import Helpers.PrintHelpers.PrintHelper as phelper
+import Helpers.CheckingValueHelpers.CheckingValueHelper as valueHelper
 
 _PROCESSING_MANAGER_COMMANDS_ = [
-    "(d):               Drop columns.",
+    "(dc):              Drop columns.",
+    "(dl):              Delete line which meets terms",
     "(median):          Complete with median.",
     "(mean):            Complete with mean.",
     "(most frequent):   Complerte with most frequent",
@@ -19,7 +22,7 @@ _PROCESSING_MANAGER_COMMANDS_ = [
     "(coi):             Convert objects to int",
     "(cib):             Covnert int to boolean",
     "(s):               Sum two columns",
-    "(del outlier):     Delete outlier",
+    "(deloutlier):     Delete outlier",
     "(cancel):          Cancel."
 ]
 
@@ -37,8 +40,10 @@ class PreprocessingManager:
             phelper.PrintHelper.print_command_menu(_PROCESSING_MANAGER_COMMANDS_)
 
             ans = input("Please input command: ")
-            if ans == "d":
-                return self._invoke_drop()
+            if ans == "dc":
+                return self._invoke_drop_colum()
+            elif ans == "dl":
+                return self._invoke_drop_rows()
             elif ans == "median":
                 return self._invoke_complement_with_median()
             elif ans == "mean":
@@ -59,10 +64,10 @@ class PreprocessingManager:
                 return self._invoke_sum_columns()
             elif ans == "cib":
                 return self._invoke_convert_columns_to_boolean()
-            elif ans == "del outlier":
+            elif ans == "deloutlier":
                 return self._invoke_delete_outlier()
             elif ans == "cancel":
-                return self.df
+                return self._df
             elif ans == "":
                 continue
             else:
@@ -94,7 +99,7 @@ class PreprocessingManager:
             else:
                 return self._pp.complement_with_mostfrequency(column)
 
-    def _invoke_drop(self):
+    def _invoke_drop_colum(self):
         """dorp columns from dataframe.
 
         """
@@ -108,7 +113,37 @@ class PreprocessingManager:
                 print(ans + " is not exist!!")
                 continue
             else:
-                return self._pp.drop(ans)
+                return self._pp.drop_colum(ans)
+    def _invoke_drop_rows(self):
+        """drop line from data frame
+
+        """
+        while True:
+            command = input("Please input a term value. (e.g, column_name = 1  column_name < 1, column_na,e > 1 ): ")
+            words = re.split(" ", command)
+            column = words[0]
+            term = words[1]
+            threshold = int(words[2])
+
+            if column not in self._df.columns:
+                print(column + " is not existed!!")
+                continue
+
+            if self._check_value_of_invoke_drop_rows(words) is False:
+                return self._df
+            else:
+                return self._pp.drop_rows(column,term,threshold)
+
+    def _check_value_of_invoke_drop_rows(self,words):
+        if (len(words) != 3):
+            print(words + " is not supported!")
+            return False
+        elif words[1] == ">" or words[1] == "<" or words[1] == "=":
+            return True
+        else:
+            print(words + " is not supported!")
+            return False
+
 
     def _invoke_convert_time_to_weekdays(self):
         """Convert time to weekdays.
@@ -119,7 +154,7 @@ class PreprocessingManager:
 
         Examples:
             original data : ['2017-11-07 09:30:38']
-            
+
         """
         while True:
             ans = input("Please input column name you want to convert to weekday: ")
@@ -252,6 +287,9 @@ class PreprocessingManager:
         while True:
             self._df.info()
             column_name = input("Please input column name you want to delete when it is ourlier: ")
+            if column_name == "":
+                print("Dleted outlier from all columns as you did not input column name.")
+                break;
             if not column_name in self._df.columns:
                 print(column_name + " is not existed!!")
                 continue
@@ -259,11 +297,19 @@ class PreprocessingManager:
                 break
         while True:
             bias = input("Please input bias(e.g, 1.5). Default value is 1.5: ")
-            if bias is "":
+            if bias == "":
                 print("bias is default value(1.5)")
                 bias = 1.5
                 break
             else:
                 break
-
-        return self._pp.delete_outlier(column_name,float(bias))
+        # delete out lier from all columns
+        if column_name == "":
+            for i in self._df.columns:
+                print("Delete outlier in " + i)
+                self._pp.df.info()
+                self._pp.df = self._pp.delete_outlier(i,float(bias))
+            return self._pp.df
+        # delete out lier from one column
+        else:
+            return self._pp.delete_outlier(column_name,float(bias))

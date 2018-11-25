@@ -6,8 +6,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.neural_network import MLPClassifier
 
 # Internal Libraries
-import Algorithms.Utilities.DataFrameChecker as dfc
-import PrintHelpers.PrintHelper as phelper
+import Helpers.DataFrameHelpers.DataFrameChecker as dfc
+import Helpers.PrintHelpers.PrintHelper as phelper
 
 class DeepLearning:
     """RDeepLearning Class.
