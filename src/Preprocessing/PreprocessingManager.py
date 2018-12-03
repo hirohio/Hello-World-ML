@@ -8,6 +8,8 @@ import re
 import Preprocessing.PreprocessingExecuter as prep
 import Helpers.PrintHelpers.PrintHelper as phelper
 import Helpers.CheckingValueHelpers.CheckingValueHelper as valueHelper
+import Helpers.DataFrameHelpers.DataFrameChecker as dfc
+import Commons.CommandAccepterBase as CAB
 
 _PROCESSING_MANAGER_COMMANDS_ = [
     "(dc):              Drop columns.",
@@ -22,11 +24,11 @@ _PROCESSING_MANAGER_COMMANDS_ = [
     "(coi):             Convert objects to int",
     "(cib):             Covnert int to boolean",
     "(s):               Sum two columns",
-    "(deloutlier):     Delete outlier",
+    "(deloutlier):      Delete outlier",
     "(cancel):          Cancel."
 ]
 
-class PreprocessingManager:
+class PreprocessingManager(CAB.CommandAccepterBase):
     """Preprocessing Manager
     This modules accepts commadn to prepreocessing data.
 
@@ -35,7 +37,7 @@ class PreprocessingManager:
         self._df = df
         self._pp = prep.Preprocessing(self._df)
 
-    def accept_command(self):
+    def _extend_accept_command(self):
         while True:
             phelper.PrintHelper.print_command_menu(_PROCESSING_MANAGER_COMMANDS_)
 
@@ -243,7 +245,7 @@ class PreprocessingManager:
 
     def _invoke_convert_object_to_int(self):
         while True:
-            ans = input("Please input column name you want to convert to string from object: ")
+            ans = input("Please input column name you want to convert type object to int: ")
             if ans not in self._df.columns:
                 print(ans + " is not exist!!")
                 continue
@@ -286,15 +288,22 @@ class PreprocessingManager:
     def _invoke_delete_outlier(self):
         while True:
             self._df.info()
-            column_name = input("Please input column name you want to delete when it is ourlier: ")
+            column_name = input("Please input column name you want to delete when it is ourlierself. If you did not column name, system tries to delete outlier from all columns: ")
             if column_name == "":
-                print("Dleted outlier from all columns as you did not input column name.")
+                if not dfc.DataFrameChecker.is_df_num(self._df):
+                    print("[Warning!]Some data are NOT numeric. You have to convert the data type to interger or float before")
+                    return self._df
                 break;
-            if not column_name in self._df.columns:
+            elif not column_name in self._df.columns:
                 print(column_name + " is not existed!!")
                 continue
+            elif column_name in self._df.columns:
+                 if not dfc.DataFrameChecker.is_df_num(self._df[column_name]):
+                     print("[Warning!]" + column_name + " is NOT numeric. You have to convert the data type to integer or float before!")
             else:
                 break
+
+
         while True:
             bias = input("Please input bias(e.g, 1.5). Default value is 1.5: ")
             if bias == "":

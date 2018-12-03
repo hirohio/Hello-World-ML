@@ -6,11 +6,17 @@ import traceback
 # Internal Modules
 import IOFiles.IOFile as iof
 import Helpers.PrintHelpers.PrintHelper as phelper
+import Commons.CommandAccepterBase as CAB
 
 from os import path,pardir
 ROOT_DIR = path.abspath(path.join(path.abspath(path.dirname(__file__)),pardir))
 
-class IOFileManager:
+_IOFILE_MENU_COMMANDS_ = [
+        "(imf):     Import csv file.",
+        "(exf):     Export csv file.",
+]
+
+class IOFileManager(CAB.CommandAccepterBase):
     """Manager of input/output files.
     This class requires user input to input/output files.
 
@@ -18,6 +24,23 @@ class IOFileManager:
     def __init__(self):
         self.io_file = iof.IOFile()
 
+    def _extend_accept_command(self):
+        while True:
+            phelper.PrintHelper.print_command_menu(_IOFILE_MENU_COMMANDS_)
+            ans = input("Please input command: ")
+
+            if ans == "imf":
+                return self.import_from_csv()
+            elif ans == "exf":
+                self.export_to_csv(df)
+                break
+            elif ans == "cancel":
+                break
+            elif ans == "":
+                continue
+            else:
+                print(ans + " is not supported")
+                break
     def import_from_csv(self):
         """This method exports dataframe file as csv.
 
@@ -36,7 +59,7 @@ class IOFileManager:
                 break
             except FileNotFoundError:
                 print(ROOT_DIR + file_name + " is not exist.")
-                continue
+                return
             except:
                 print("Unexpected Exception")
                 traceback.print_exc()
@@ -105,7 +128,7 @@ class IOFileManager:
         return True
 
     def export_output(self,original_test_df,output_df,predicted_column):
-        """[Warning!!]This method should be refactoerd.
+        """
 
         """
         columns = ['temp']

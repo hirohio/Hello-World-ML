@@ -5,6 +5,7 @@ import traceback
 # Internal Modules
 import Graphs.GraphsExecuter as gph
 import Helpers.PrintHelpers.PrintHelper as phelper
+import Commons.CommandAccepterBase as CAB
 
 _GRAPHS_MANAGER_COMMANDS_ = [
     '(h):           Histgram Plot.',
@@ -17,12 +18,12 @@ _GRAPHS_MANAGER_COMMANDS_ = [
     '(cancel):      Cancel.'
 ]
 
-class GraphsManager:
+class GraphsManager(CAB.CommandAccepterBase):
     def __init__(self,df):
         self.df = df
         self.graphs = gph.Graphs(self.df)
 
-    def accept_command(self):
+    def _extend_accept_command(self):
         while True:
             phelper.PrintHelper.print_command_menu(_GRAPHS_MANAGER_COMMANDS_)
             ans = input("Please input command: ")

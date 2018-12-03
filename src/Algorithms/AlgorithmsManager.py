@@ -4,6 +4,7 @@ import Algorithms.VotingClassifier as votingclassfier
 import Helpers.DataFrameHelpers.DataFrameChecker as dfc
 import IOFiles.IOFileManager as iof
 import Helpers.PrintHelpers.PrintHelper as phelper
+import Commons.CommandAccepterBase as CAB
 
 _RANDOM_FOREST_PARAMETER_PATH = "/Algorithms/Data/RandomForestParameters_test.yml"
 _DEEP_LEARNING_PARAMETER_PATH = "/Algorithms/Data/DeepLearningParameters_test.yml"
@@ -15,7 +16,7 @@ _ALGORITHMS_MANAGER_COMMANDS_ = [
     "(c):       Cancel"
 ]
 
-class AlgorithmsManager:
+class AlgorithmsManager(CAB.CommandAccepterBase):
     """AlgorithmManager Class.
     This class accepts commands and execute machine learning algorithms.
 
@@ -40,7 +41,7 @@ class AlgorithmsManager:
         self._dl = None
         self._lr = None
 
-    def accept_command(self):
+    def _extend_accept_command(self):
         """
         This method acccepts commands from userself and invoke algorithm classes.
 
