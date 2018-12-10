@@ -13,6 +13,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import Imputer
 from sklearn.preprocessing import StandardScaler
+import Helpers.DataFrameHelpers.DataFrameChecker as dfc
+import Helpers.CheckingValueHelpers.CheckingValueHelper as cvh
 
 class Preprocessing:
     """Preprocessing Class.
@@ -22,6 +24,11 @@ class Preprocessing:
     def __init__(self, df):
         self.df = df
         self.datetime_kinds = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond']
+
+    def add_id(self):
+        self.df = self.df.reset_index()
+        self.df.info()
+        return self.df
 
     def complement_with_median(self,column):
         """Complete 'NaN' data with median.
@@ -107,12 +114,15 @@ class Preprocessing:
         Returns:
             Dataframe: Dataframe which is dropped rows.
         """
-        if term == '=':
-            self.df = self.df[self.df[column] == threshold]
-        elif term == '<':
-            self.df = self.df[self.df[column] < threshold]
-        elif term == '>':
-            self.df = self.df[self.df[column] > threshold]
+        try:
+            if term == '=':
+                self.df = self.df[self.df[column] == threshold]
+            elif term == '<':
+                self.df = self.df[self.df[column] < threshold]
+            elif term == '>':
+                self.df = self.df[self.df[column] > threshold]
+        except TypeError:
+            phelper.print_error("invalid type comparison")
         return self.df
 
     # xxxx-xx-xx xx:xx:xx to 0~7

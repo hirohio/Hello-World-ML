@@ -21,9 +21,9 @@ class IOFileManager(CAB.CommandAccepterBase):
     This class requires user input to input/output files.
 
     """
-    def __init__(self):
+    def __init__(self,df):
         self.io_file = iof.IOFile()
-
+        self._df = df
     def _extend_accept_command(self):
         while True:
             phelper.PrintHelper.print_command_menu(_IOFILE_MENU_COMMANDS_)
@@ -32,7 +32,7 @@ class IOFileManager(CAB.CommandAccepterBase):
             if ans == "imf":
                 return self.import_from_csv()
             elif ans == "exf":
-                self.export_to_csv(df)
+                self.export_to_csv(self._df)
                 break
             elif ans == "cancel":
                 break
@@ -118,8 +118,8 @@ class IOFileManager(CAB.CommandAccepterBase):
                 file_name = input("Please input output file name. : ")
                 if file_name[:1] is not '/':
                     file_name = '/' + file_name
-                print ('file path is ' + ROOT_DIR + file_name)
-                self.io_file.export_to_csv(ROOT_DIR + file_name,df)
+                print ('file path is ' + ROOT_DIR + '/Data' + file_name)
+                self.io_file.export_to_csv(ROOT_DIR + '/Data' + file_name,df)
                 return df
             except:
                 print("Unexpected Exception")

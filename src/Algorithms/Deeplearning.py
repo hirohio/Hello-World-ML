@@ -10,7 +10,7 @@ import Helpers.DataFrameHelpers.DataFrameChecker as dfc
 import Helpers.PrintHelpers.PrintHelper as phelper
 
 class DeepLearning:
-    """RDeepLearning Class.
+    """DeepLearning Class.
 
     """
 
@@ -25,10 +25,23 @@ class DeepLearning:
         return self._learned_model
 
     def __init__(self,df):
+        """
+        This method is a constracter.
+
+        Args:
+            df: Dataframe for Machine Learning.
+        """
         phelper.PrintHelper.print_title(self.__class__.__name__)
         self._df = df
 
     def learn(self,column,params):
+        """
+        Learn dataframe.
+
+        Args:
+            column: column you want to predict.
+            params: parameter for Grid Search.
+        """
         if dfc.DataFrameChecker.is_df_num(self._df) is False:
             return False
 
@@ -77,6 +90,15 @@ class DeepLearning:
         return True
 
     def predict(self,test_df):
+        """
+        Predicts data with test data.
+
+        Args:
+            test_df: Dataframe for test.
+            
+        Returns:
+            Dataframe: Dataframe with predict data or None.
+        """
         #checking matching between test_df.columns and x_df.columns
         if dfc.DataFrameChecker.is_columns_matched(self._X,test_df):
             return self._learned_model.predict(test_df).astype(int)

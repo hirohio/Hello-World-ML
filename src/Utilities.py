@@ -48,7 +48,7 @@ def main():
 
         while True:
             try:
-                io_file = iof.IOFileManager()
+                io_file = iof.IOFileManager(None)
                 df = io_file.initial_import_from_csv(path)
                 df.info()
                 break
@@ -87,7 +87,7 @@ def main():
             elif ans == "d":
                 print(df.describe())
             elif ans == "file":
-                io_file = iof.IOFileManager()
+                io_file = iof.IOFileManager(df)
                 result= io_file.accept_command()
                 if result is not None:
                     result = df

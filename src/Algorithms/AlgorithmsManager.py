@@ -18,7 +18,7 @@ _ALGORITHMS_MANAGER_COMMANDS_ = [
 
 class AlgorithmsManager(CAB.CommandAccepterBase):
     """AlgorithmManager Class.
-    This class accepts commands and execute machine learning algorithms.
+    This class accepts commands and executes machine learning algorithms.
 
     """
 
@@ -43,7 +43,7 @@ class AlgorithmsManager(CAB.CommandAccepterBase):
 
     def _extend_accept_command(self):
         """
-        This method acccepts commands from userself and invoke algorithm classes.
+        This method acccepts commands from user and invokes algorithm classes.
 
         Examples:
             >>> AlgorithmManager(df).accept_command()
@@ -119,7 +119,7 @@ class AlgorithmsManager(CAB.CommandAccepterBase):
 
     def _invoke_deep_learning(self):
         """
-        This method invoke deep learning.
+        This method invokes deep learning.
         It accepts some input for deep learning from user.
         """
 
@@ -192,6 +192,8 @@ class AlgorithmsManager(CAB.CommandAccepterBase):
 
     def _generate_algorithms(self):
         """Generate Algoristhms List.
+        This method for VotingClassifier.
+        Algorithms class must be made instance before VotingClassifier is invoked.
 
         """
         if self._rf is not None:

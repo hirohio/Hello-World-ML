@@ -7,13 +7,13 @@ import re
 # Internal Modules
 import Preprocessing.PreprocessingExecuter as prep
 import Helpers.PrintHelpers.PrintHelper as phelper
-import Helpers.CheckingValueHelpers.CheckingValueHelper as valueHelper
 import Helpers.DataFrameHelpers.DataFrameChecker as dfc
 import Commons.CommandAccepterBase as CAB
 
 _PROCESSING_MANAGER_COMMANDS_ = [
+    "(add id)           Add id to each rows.",
     "(dc):              Drop columns.",
-    "(dl):              Delete line which meets terms",
+    "(dr):              Delete rows which meets terms",
     "(median):          Complete with median.",
     "(mean):            Complete with mean.",
     "(most frequent):   Complerte with most frequent",
@@ -42,9 +42,11 @@ class PreprocessingManager(CAB.CommandAccepterBase):
             phelper.PrintHelper.print_command_menu(_PROCESSING_MANAGER_COMMANDS_)
 
             ans = input("Please input command: ")
-            if ans == "dc":
+            if ans == "add id":
+                return self._invoke_add_id()
+            elif ans == "dc":
                 return self._invoke_drop_colum()
-            elif ans == "dl":
+            elif ans == "dr":
                 return self._invoke_drop_rows()
             elif ans == "median":
                 return self._invoke_complement_with_median()
@@ -75,6 +77,9 @@ class PreprocessingManager(CAB.CommandAccepterBase):
             else:
                 print(ans + " is not a supported command!\n")
                 continue
+    def _invoke_add_id(self):
+        return self._pp.add_id()
+
     def _invoke_complement_with_median(self):
         while True:
             column = input("Plese input column name: ")
@@ -117,15 +122,22 @@ class PreprocessingManager(CAB.CommandAccepterBase):
             else:
                 return self._pp.drop_colum(ans)
     def _invoke_drop_rows(self):
-        """drop line from data frame
+        """drop rows which meets term.
 
         """
         while True:
-            command = input("Please input a term value. (e.g, column_name = 1  column_name < 1, column_na,e > 1 ): ")
+            command = input("Please input a term value. (e.g, column_name = 1  column_name < 1, column_name > 1 ): ")
             words = re.split(" ", command)
             column = words[0]
             term = words[1]
-            threshold = int(words[2])
+            try:
+                threshold = int(words[2])
+            except TypeError:
+                phelper.PrintHelper.print_error("invalid value error: Is " + words[2] + " numeric?")
+                return self._df
+            except ValueError:
+                phelper.PrintHelper.print_error("invalid value error: Is " + words[2] + " numeric?")
+                return self._df
 
             if column not in self._df.columns:
                 print(column + " is not existed!!")
@@ -282,8 +294,8 @@ class PreprocessingManager(CAB.CommandAccepterBase):
             if new_column_name in self._df.columns:
                 print(new_column_name + " is existed!!")
                 continue
-            sleshhold = input("Please input sleshhold value: ")
-            return self._pp.convert_columns_to_boolean(column_name,new_column_name,int(sleshhold))
+            threshold = input("Please input threshold value: ")
+            return self._pp.convert_columns_to_boolean(column_name,new_column_name,int(threshold))
 
     def _invoke_delete_outlier(self):
         while True:
