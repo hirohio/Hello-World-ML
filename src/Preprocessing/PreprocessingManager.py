@@ -24,6 +24,7 @@ _PROCESSING_MANAGER_COMMANDS_ = [
     "(coi):             Convert objects to int",
     "(cib):             Covnert int to boolean",
     "(s):               Sum two columns",
+    "(sample):           Sampling rows from data.",
     "(deloutlier):      Delete outlier",
     "(cancel):          Cancel."
 ]
@@ -66,6 +67,8 @@ class PreprocessingManager(CAB.CommandAccepterBase):
                 return self._invoke_convert_object_to_int()
             elif ans == "s":
                 return self._invoke_sum_columns()
+            elif ans == "sample":
+                return self._invoke_sample()
             elif ans == "cib":
                 return self._invoke_convert_columns_to_boolean()
             elif ans == "deloutlier":
@@ -282,6 +285,14 @@ class PreprocessingManager(CAB.CommandAccepterBase):
                 print(new_column_name + " is existed!!")
                 continue
             return self._pp.sum_columns(column_name,column_name2,new_column_name)
+    def _invoke_sample(self):
+        while True:
+            n = input("Please input number of rows.")
+            if not n.isdigit():
+                phelper.PrintHelpers.print_error("Your input is not numeric.")
+                continue
+            else:
+                return self._pp.sample(n)
 
     def _invoke_convert_columns_to_boolean(self):
         while True:
@@ -303,7 +314,7 @@ class PreprocessingManager(CAB.CommandAccepterBase):
             column_name = input("Please input column name you want to delete when it is ourlierself. If you did not column name, system tries to delete outlier from all columns: ")
             if column_name == "":
                 if not dfc.DataFrameChecker.is_df_num(self._df):
-                    print("[Warning!]Some data are NOT numeric. You have to convert the data type to interger or float before")
+                    print("[Warning!]Some data are NOT numeric. You have to convert the data type to integer or float before")
                     return self._df
                 break;
             elif not column_name in self._df.columns:

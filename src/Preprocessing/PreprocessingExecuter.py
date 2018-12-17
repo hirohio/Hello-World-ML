@@ -231,6 +231,13 @@ class Preprocessing:
         self.df[new_column_name] = self.df[column_name] + self.df[column_name2]
         return self.df
 
+    def sample(self,n):
+        try:
+            return self.df.sample(n)
+        except TypeError:
+            phelper.PrintHelper.print_error("Type Error:")
+            return self.df
+
     #convert value to boolean
     def convert_columns_to_boolean(self,column_name,new_column_name,sleshhold):
         self.df[new_column_name] = self.df[column_name].apply(lambda x: 1 if x < sleshhold else 0)
